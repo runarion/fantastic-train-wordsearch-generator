@@ -1,0 +1,96 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wordsearch-generator"
+version = "0.1.0"
+description = "A Python library for generating professional wordsearch puzzles and puzzle books"
+readme = "README.md"
+license = {text = "Apache-2.0"}
+authors = [
+    {name = "Runarion"}
+]
+requires-python = ">=3.8"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Games/Entertainment :: Puzzle Games",
+]
+dependencies = [
+    # Add runtime dependencies here when needed
+    # Currently the core module has no external dependencies
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=9.0.0",
+    "pylint>=4.0.0",
+    "black>=25.0.0",
+    "isort>=7.0.0",
+]
+docx = [
+    "python-docx>=1.2.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/runarion/fantastic-train-wordsearch-generator"
+Repository = "https://github.com/runarion/fantastic-train-wordsearch-generator"
+Issues = "https://github.com/runarion/fantastic-train-wordsearch-generator/issues"
+
+[project.scripts]
+wordsearch-generate = "scripts.generate_wordsearch:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+wordsearch = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v"
+
+[tool.black]
+line-length = 88
+target-version = ["py38", "py39", "py310", "py311", "py312"]
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 88
+skip_gitignore = true
+
+[tool.pylint.main]
+max-line-length = 100
+disable = [
+    "C0103",  # Invalid name (for variables)
+]
+
+[tool.pylint.messages_control]
+max-args = 6
+max-attributes = 10
