@@ -1,0 +1,31 @@
+{
+    "puzzles": [
+        {
+            "title": "Animals",
+            "words": [
+                "ELEPHANT",
+                "GIRAFFE",
+                "KANGAROO",
+                "ALLIGATOR",
+                "CROCODILE",
+                "DOLPHIN",
+                "FLAMINGO",
+                "HIPPOPOTAMUS",
+                "JAGUAR",
+                "OSTRICH"
+            ],
+            "size": 18
+        },
+        {
+            "title":"Pets",
+            "words":[
+                "DOG",
+                "CAT",
+                "HAMSTER",
+                "PARROT",
+                "RABBIT"
+            ],
+            "size": 8
+        }
+    ]
+}

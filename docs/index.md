@@ -1,12 +1,15 @@
 # 🚆📚 Fantastic Train - Wordsearch Generator Documentation
 
-Welcome to the comprehensive documentation for the Fantastic Train Wordsearch Generator! This library helps you create professional wordsearch puzzles and complete puzzle books with ease.
+> 🚧 **Work in Progress** - This project is under active development. Documentation will be expanded as features are implemented.
+
+Welcome to the comprehensive documentation for the Fantastic Train Wordsearch Generator! This tool helps you create professional wordsearch puzzles and complete puzzle books with ease.
 
 ## 📑 Contents
 
 - [Overview](#overview)
 - [Getting Started](#getting-started)
 - [Basic Usage](#basic-usage)
+- [CLI Reference](#cli-reference)
 - [Advanced Features](#advanced-features)
 - [FAQ](#faq)
 - [Troubleshooting](#troubleshooting)
@@ -54,6 +57,18 @@ cd fantastic-train-wordsearch-generator
 
 ---
 
+## CLI Reference
+
+### Command Line Options
+
+... TBD
+
+### Input JSON Format
+
+... TBD
+
+---
+
 ## Advanced Features
 
 ### Difficulty Levels
@@ -96,4 +111,4 @@ cd fantastic-train-wordsearch-generator
 
 ---
 
-*Documentation last updated: November 20, 2025*
+*Documentation last updated: November 21, 2025*
