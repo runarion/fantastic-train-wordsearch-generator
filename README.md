@@ -27,16 +27,22 @@ git clone https://github.com/runarion/fantastic-train-wordsearch-generator.git
 cd fantastic-train-wordsearch-generator
 ```
 
-Install the required dependencies:
+Install in development mode with all dependencies:
 
 ```bash
-pip install -r requirements.txt
+pip install -e ".[dev,docx]"
+```
+
+Or install just the base package:
+
+```bash
+pip install -e .
 ```
 
 ### Requirements
 
 - Python 3.8 or higher
-- Dependencies will be installed automatically with the package
+- Dependencies are managed through `pyproject.toml`
 
 ## 📖 Usage
 
