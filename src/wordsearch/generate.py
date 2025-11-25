@@ -4,9 +4,13 @@ Word search puzzle generator module.
 This module provides the WordSearch class for generating word search puzzles
 with configurable grid sizes and word placement strategies.
 """
+
 import logging
+import os
 import random
 import string
+
+from .export_docx import save_wordsearch_to_docx
 
 logging.basicConfig(
     level=logging.INFO,
@@ -192,8 +196,20 @@ class WordSearch:
         for solution in self.solution:
             print(f"\t{solution}")
 
+    def create_docx(self):
+        """Export the word search puzzle to a DOCX file."""
+        upper_words = list(map(lambda x: x.upper().replace(" ", ""), self.words))
+        # [TO DO]: "out" folder works only if run from the root of the project
+        # [TO DO]: update out path to be configurable, default to "out"
+        out_dir = "out"
+        os.makedirs(out_dir, exist_ok=True)
+        filename = os.path.join(out_dir, f"{self.title.lower()}.docx")
+        save_wordsearch_to_docx(self.grid, upper_words, filename)
 
-def generate_puzzle(puzzle_title, word_list, grid_size, use_basic, verbose=False):
+
+def generate_puzzle(
+    puzzle_title, word_list, grid_size, use_basic, *, export_docx=False, verbose=False
+):
     """
     Generate a word search puzzle.
 
@@ -220,6 +236,13 @@ def generate_puzzle(puzzle_title, word_list, grid_size, use_basic, verbose=False
         wordsearch.show_grid()
         wordsearch.show_solution()
 
+    if export_docx and wordsearch:
+        wordsearch.create_docx()
+        logging.info(
+            "Word search puzzle '%s' exported to %s.docx",
+            puzzle_title,
+            puzzle_title.lower(),
+        )
     return wordsearch
 
 
@@ -238,4 +261,4 @@ if __name__ == "__main__":
     SIZE = 12
     BASIC = True
 
-    generate_puzzle(TITLE, WORDS, SIZE, BASIC, verbose=True)
+    generate_puzzle(TITLE, WORDS, SIZE, BASIC, export_docx=True, verbose=True)
