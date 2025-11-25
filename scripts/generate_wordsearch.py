@@ -5,6 +5,7 @@ This module provides a command-line interface for creating wordsearch puzzles
 using the wordsearch library. It accepts JSON files containing puzzle
 definitions and outputs the generated puzzles to the console.
 """
+
 import argparse
 import json
 import logging
@@ -30,6 +31,7 @@ if __name__ == "__main__":
     # parse arguments
     parser = argparse.ArgumentParser()
     parser.add_argument("input", help="input file, json format")
+    parser.add_argument("-o", "--output", help="output folder")
     parser.add_argument(
         "-b",
         "--basic",
@@ -40,6 +42,20 @@ if __name__ == "__main__":
         ),
     )
     args = parser.parse_args()
+
+    # [TO DO]: handle output folder
+    # if args.output is None :
+    #     args.output = os.path.join(
+    #         os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+    #         "out",
+    #     )
+
+    # if not os.path.exists(args.output):
+    #     try:
+    #         os.makedirs(args.output)
+    #     except Exception as e:
+    #         logging.error(f"Failed to create output directory: {e}")
+    #         exit(1)
 
     # get input file data
     input_file = os.path.join(os.getcwd(), args.input)
@@ -63,5 +79,6 @@ if __name__ == "__main__":
                 item["words"],
                 size,
                 args.basic,
+                export_docx=True,
                 verbose=True,
             )

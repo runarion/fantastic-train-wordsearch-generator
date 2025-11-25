@@ -26,8 +26,7 @@ classifiers = [
     "Topic :: Games/Entertainment :: Puzzle Games",
 ]
 dependencies = [
-    # Add runtime dependencies here when needed
-    # Currently the core module has no external dependencies
+    "python-docx>=1.2.0",
 ]
 
 [project.optional-dependencies]
@@ -36,9 +35,6 @@ dev = [
     "pylint>=4.0.0",
     "black>=25.0.0",
     "isort>=7.0.0",
-]
-docx = [
-    "python-docx>=1.2.0",
 ]
 
 [project.urls]
