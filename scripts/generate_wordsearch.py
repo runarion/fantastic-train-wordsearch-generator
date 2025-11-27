@@ -18,7 +18,9 @@ sys.path.insert(
 
 # pylint: disable=wrong-import-position,import-error
 from wordsearch import generate
+from wordsearch import docx_export
 
+# Configure logging
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
@@ -69,16 +71,24 @@ if __name__ == "__main__":
     for j, item in enumerate(data["puzzles"]):
         # default size
         size = 15
+        puzzle = None
 
         if {"title", "words"} <= item.keys():
             if "size" in item:
                 size = item["size"]
 
-            generate.generate_puzzle(
+            puzzle = generate.generate_puzzle(
                 item["title"],
                 item["words"],
                 size,
                 args.basic,
-                export_docx=True,
                 verbose=True,
+            )
+
+        # Save DOCX with grid and solution
+        if puzzle and args.output:
+            output_docx = f"{item['title'].lower().replace(' ', '_')}_wordsearch.docx"
+            output_docx = os.path.join(args.output, output_docx)
+            docx_export.save_wordsearch_to_docx(
+                output_docx, item["title"], puzzle.grid, puzzle.words, puzzle.solution
             )

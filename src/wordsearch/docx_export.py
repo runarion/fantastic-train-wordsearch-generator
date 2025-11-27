@@ -4,20 +4,23 @@ Export word search puzzles to DOCX format.
 This module provides functionality to save word search puzzles
 as Microsoft Word documents (.docx files).
 """
+
+import os
 from docx import Document
 
 
-def save_wordsearch_to_docx(grid, words, filename):
+def save_wordsearch_to_docx(file_path, title, grid, words, solution=None):
     """
     Saves the wordsearch result to a DOCX file.
 
     Args:
-        wordsearch_result (dict): The result from wordsearch.generate,
-                                  expected to have 'grid' and 'words' keys.
-        filename (str): The path to the output DOCX file.
+        file_path (str): The full path where the DOCX file will be saved.
+        title (str): The title of the word search puzzle.
+        grid (list): The puzzle grid as a 2D list of letters.
+        words (list): The list of words in the puzzle.
     """
     doc = Document()
-    doc.add_heading("Word Search Puzzle", 0)
+    doc.add_heading(title, 0)
 
     # Add the grid
     doc.add_heading("Puzzle Grid", level=1)
@@ -31,7 +34,13 @@ def save_wordsearch_to_docx(grid, words, filename):
     for word in words:
         doc.add_paragraph(word, style="List Bullet")
 
-    doc.save(filename)
+    # [TO DO]: add solution page, with a dedicated parameter.
+    if solution:
+        pass
+
+    # Ensure the output directory exists and save the document
+    os.makedirs(os.path.dirname(file_path), exist_ok=True)
+    doc.save(file_path)
 
 
 if __name__ == "__main__":
@@ -45,6 +54,12 @@ if __name__ == "__main__":
         ],
         "words": ["ABCD", "EFGH", "IJKL", "MNOP"],
     }
+    output_path = os.path.abspath(
+        os.path.join(os.path.dirname(__file__), "..", "..", "out", "wordsearch.docx")
+    )
     save_wordsearch_to_docx(
-        wordsearch_result["grid"], wordsearch_result["words"], "wordsearch.docx"
+        output_path,
+        "Word Search Puzzle Title",
+        wordsearch_result["grid"],
+        wordsearch_result["words"],
     )
