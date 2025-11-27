@@ -28,9 +28,6 @@ logging.basicConfig(
     handlers=[logging.StreamHandler()],
 )
 
-docx = True
-pdf = True
-
 if __name__ == "__main__":
 
     # parse arguments
@@ -46,6 +43,8 @@ if __name__ == "__main__":
             "diagonal from top left to bottom right"
         ),
     )
+    parser.add_argument("--pdf", action="store_true", help="generate PDF output")
+    parser.add_argument("--docx", action="store_true", help="generate DOCX output")
     args = parser.parse_args()
 
     # get input file data
@@ -78,26 +77,21 @@ if __name__ == "__main__":
             logging.error("Failed to generate puzzle for %s", item["title"])
             continue
 
-        if docx:
+        # Get highlights for the solution
+        highlights = puzzle.get_highlights()
+
+        if args.docx:
             # Save DOCX with grid and solution
             output_docx = f"{item['title'].lower().replace(' ', '_')}_wordsearch.docx"
             output_docx = os.path.join(args.output, output_docx)
-
             docx_export.save_wordsearch_to_docx(
-                output_docx, item["title"], puzzle.grid, puzzle.words, puzzle.solution
+                output_docx, item["title"], puzzle.grid, puzzle.words, highlights
             )
 
-        if pdf:
-            # Get highlights for the solution
-            highlights = puzzle.get_highlights()
-
+        if args.pdf:
             # Save PDF with grid and solution
             output_pdf = f"{item['title'].lower().replace(' ', '_')}_wordsearch.pdf"
             output_pdf = os.path.join(args.output, output_pdf)
             pdf_render.render_wordsearch_pdf(
-                output_pdf,
-                item["title"],
-                puzzle.grid,
-                puzzle.words,
-                highlights=highlights,
+                output_pdf, item["title"], puzzle.grid, puzzle.words, highlights
             )

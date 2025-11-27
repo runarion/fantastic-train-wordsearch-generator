@@ -3,6 +3,8 @@ This module provides functionality to render word search puzzles
 and their solutions to PDF format using the ReportLab library.
 """
 
+import os
+
 from reportlab.lib.pagesizes import letter
 from reportlab.platypus import (
     SimpleDocTemplate,
@@ -14,6 +16,7 @@ from reportlab.platypus import (
 )
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib import colors
+from wordsearch import direction_to_delta
 
 
 def render_wordsearch_pdf(
@@ -33,6 +36,10 @@ def render_wordsearch_pdf(
         word_list (list of str): List of words.
         highlights (list of dict): Optional. Each dict: {'word', 'start', 'direction', 'length'}
     """
+    # Ensure the output directory exists
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+
+    # Create the PDF document
     doc = SimpleDocTemplate(output_path, pagesize=letter)
     styles = getSampleStyleSheet()
     elements = []
@@ -112,20 +119,3 @@ def render_wordsearch_pdf(
         )
     else:
         doc.build(elements)
-
-
-def direction_to_delta(direction):
-    """
-    Map direction string to (dr, dc)
-    """
-    mapping = {
-        "horizontal": (0, 1),
-        "horizontal_rev": (0, -1),
-        "vertical": (1, 0),
-        "vertical_rev": (-1, 0),
-        "diagonal_down": (1, 1),
-        "diagonal_up": (-1, 1),
-        "diagonal_down_rev": (1, -1),
-        "diagonal_up_rev": (-1, -1),
-    }
-    return mapping.get(direction, (0, 1))

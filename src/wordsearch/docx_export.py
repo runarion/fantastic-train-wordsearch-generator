@@ -7,9 +7,11 @@ as Microsoft Word documents (.docx files).
 
 import os
 from docx import Document
+from wordsearch import direction_to_delta
 
 
-def save_wordsearch_to_docx(file_path, title, grid, words, solution=None):
+# pylint: disable=too-many-locals
+def save_wordsearch_to_docx(file_path, title, grid, words, highlights=None):
     """
     Saves the wordsearch result to a DOCX file.
 
@@ -25,6 +27,7 @@ def save_wordsearch_to_docx(file_path, title, grid, words, solution=None):
     # Add the grid
     doc.add_heading("Puzzle Grid", level=1)
     table = doc.add_table(rows=len(grid), cols=len(grid[0]))
+    table.style = "Table Grid"
     for i, row in enumerate(grid):
         for j, letter in enumerate(row):
             table.cell(i, j).text = letter
@@ -34,9 +37,24 @@ def save_wordsearch_to_docx(file_path, title, grid, words, solution=None):
     for word in words:
         doc.add_paragraph(word, style="List Bullet")
 
-    # [TO DO]: add solution page, with a dedicated parameter.
-    if solution:
-        pass
+    # add solution page, with a dedicated parameter.
+    if highlights is not None:
+
+        doc.add_page_break()
+        doc.add_heading("Solution", level=1)
+
+        # draw an empty table as placeholder for solution
+        table = doc.add_table(rows=len(grid), cols=len(grid[0]))
+        table.style = "Table Grid"
+
+        # write solution letters into the table
+        for h in highlights:
+            r, c = h["start"]
+            dr, dc = direction_to_delta(h["direction"])
+            for char in h["word"]:
+                table.cell(r, c).text = char
+                r += dr
+                c += dc
 
     # Ensure the output directory exists and save the document
     os.makedirs(os.path.dirname(file_path), exist_ok=True)
