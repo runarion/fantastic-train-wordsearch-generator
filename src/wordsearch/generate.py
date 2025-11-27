@@ -8,12 +8,27 @@ with configurable grid sizes and word placement strategies.
 import logging
 import random
 import string
+from enum import Enum, auto
 
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
     handlers=[logging.StreamHandler()],
 )
+
+
+class Direction(Enum):
+    """Enumeration for word placement directions in the word search puzzle."""
+
+    HORIZONTAL_LEFT_TO_RIGHT = auto()
+    HORIZONTAL_RIGHT_TO_LEFT = auto()
+    VERTICAL_TOP_TO_BOTTOM = auto()
+    VERTICAL_BOTTOM_TO_TOP = auto()
+    DIAGONAL_TOP_LEFT_TO_BOTTOM_RIGHT = auto()
+    DIAGONAL_BOTTOM_LEFT_TO_TOP_RIGHT = auto()
+    DIAGONAL_TOP_RIGHT_TO_BOTTOM_LEFT = auto()
+    DIAGONAL_BOTTOM_RIGHT_TO_TOP_LEFT = auto()
+    UNKNOWN = auto()
 
 
 def parse_solution_entry(word, pos_str):
@@ -27,27 +42,27 @@ def parse_solution_entry(word, pos_str):
     row, col, dr, dc = map(int, pos_str.split(","))
     # Infer direction as a string
     if dr == 0 and dc == 1:
-        direction = "horizontal"
+        direction = Direction.HORIZONTAL_LEFT_TO_RIGHT
     elif dr == 0 and dc == -1:
-        direction = "horizontal_rev"
+        direction = Direction.HORIZONTAL_RIGHT_TO_LEFT
     elif dr == 1 and dc == 0:
-        direction = "vertical"
+        direction = Direction.VERTICAL_TOP_TO_BOTTOM
     elif dr == -1 and dc == 0:
-        direction = "vertical_rev"
+        direction = Direction.VERTICAL_BOTTOM_TO_TOP
     elif dr == 1 and dc == 1:
-        direction = "diagonal_down"
+        direction = Direction.DIAGONAL_TOP_LEFT_TO_BOTTOM_RIGHT
     elif dr == -1 and dc == 1:
-        direction = "diagonal_up"
+        direction = Direction.DIAGONAL_BOTTOM_LEFT_TO_TOP_RIGHT
     elif dr == 1 and dc == -1:
-        direction = "diagonal_down_rev"
+        direction = Direction.DIAGONAL_TOP_RIGHT_TO_BOTTOM_LEFT
     elif dr == -1 and dc == -1:
-        direction = "diagonal_up_rev"
+        direction = Direction.DIAGONAL_BOTTOM_RIGHT_TO_TOP_LEFT
     else:
-        direction = "unknown"
+        direction = Direction.UNKNOWN
     return {
         "word": word,
         "start": (row, col),
-        "direction": direction,
+        "direction": direction.name.lower(),
         "length": len(word),
     }
 
@@ -226,8 +241,15 @@ class WordSearch:
     def show_solution(self):
         """Print the solution (word positions) to console."""
         print("\nSolution:")
-        for solution in self.solution:
-            print(f"\t{solution}")
+        highlights = self.get_highlights()
+        for entry in highlights:
+            word = entry["word"]
+            start = entry["start"]
+            direction = entry["direction"]
+            length = entry["length"]
+            print(
+                f"\tWord: {word}, Start: {start}, Direction: {direction}, Length: {length}"
+            )
 
     def get_highlights(self):
         """Return solution highlights in the expected format for PDF rendering."""
