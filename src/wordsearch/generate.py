@@ -16,6 +16,42 @@ logging.basicConfig(
 )
 
 
+def parse_solution_entry(word, pos_str):
+    """Parse a solution entry string into a structured dictionary.
+    Args:
+        word (str): The word being placed.
+        pos_str (str): The position string in the format "row,col,dr,dc".
+    Returns:
+        dict: A dictionary with word, start position, direction, and length.
+    """
+    row, col, dr, dc = map(int, pos_str.split(","))
+    # Infer direction as a string
+    if dr == 0 and dc == 1:
+        direction = "horizontal"
+    elif dr == 0 and dc == -1:
+        direction = "horizontal_rev"
+    elif dr == 1 and dc == 0:
+        direction = "vertical"
+    elif dr == -1 and dc == 0:
+        direction = "vertical_rev"
+    elif dr == 1 and dc == 1:
+        direction = "diagonal_down"
+    elif dr == -1 and dc == 1:
+        direction = "diagonal_up"
+    elif dr == 1 and dc == -1:
+        direction = "diagonal_down_rev"
+    elif dr == -1 and dc == -1:
+        direction = "diagonal_up_rev"
+    else:
+        direction = "unknown"
+    return {
+        "word": word,
+        "start": (row, col),
+        "direction": direction,
+        "length": len(word),
+    }
+
+
 class WordSearch:
     """
     Generate a word search puzzle with words placed in various directions.
@@ -192,6 +228,14 @@ class WordSearch:
         print("\nSolution:")
         for solution in self.solution:
             print(f"\t{solution}")
+
+    def get_highlights(self):
+        """Return solution highlights in the expected format for PDF rendering."""
+        highlights = []
+        for entry in self.solution:
+            for word, pos_str in entry.items():
+                highlights.append(parse_solution_entry(word, pos_str))
+        return highlights
 
 
 def generate_puzzle(puzzle_title, word_list, grid_size, use_basic, verbose=False):

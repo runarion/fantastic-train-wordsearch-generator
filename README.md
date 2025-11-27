@@ -11,8 +11,8 @@ A Python library for generating professional wordsearch puzzles and puzzle books
 - [x] 📝 **Flexible Word Lists** - Import words from files or provide them programmatically
 - [ ] 🎨 **Multiple Difficulty Levels** - Control word placement directions and patterns
 - [x] 📚 **Batch Generation** - Create multiple puzzles for complete puzzle books
-- [x] 🖨️ **Basic Export** - Output the puzzles to DOCX
-- [ ] 🖨️ **Export Formats** - Output to various formats (DOCX, PDF, PNG, SVG)
+- [x] 🖨️ **Export Formats** - Output the puzzles to DOCX and PDF
+- [ ] 🌟 **Formats Evolutions** - Output to various formats (PNG, SVG ...)
 - [ ] 🔀 **Smart Word Placement** - Intelligent algorithm ensures optimal word distribution
 - [x] 🎲 **Randomization** - Generate unique puzzles from the same word list
 - [x] ✅ **Solution Keys** - Automatically generate answer keys
