@@ -19,6 +19,7 @@ sys.path.insert(
 # pylint: disable=wrong-import-position,import-error
 from wordsearch import generate
 from wordsearch import docx_export
+from wordsearch import pdf_render
 
 # Configure logging
 logging.basicConfig(
@@ -27,6 +28,8 @@ logging.basicConfig(
     handlers=[logging.StreamHandler()],
 )
 
+docx = True
+pdf = True
 
 if __name__ == "__main__":
 
@@ -44,20 +47,6 @@ if __name__ == "__main__":
         ),
     )
     args = parser.parse_args()
-
-    # [TO DO]: handle output folder
-    # if args.output is None :
-    #     args.output = os.path.join(
-    #         os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-    #         "out",
-    #     )
-
-    # if not os.path.exists(args.output):
-    #     try:
-    #         os.makedirs(args.output)
-    #     except Exception as e:
-    #         logging.error(f"Failed to create output directory: {e}")
-    #         exit(1)
 
     # get input file data
     input_file = os.path.join(os.getcwd(), args.input)
@@ -85,10 +74,30 @@ if __name__ == "__main__":
                 verbose=True,
             )
 
-        # Save DOCX with grid and solution
-        if puzzle and args.output:
+        if puzzle is None:
+            logging.error("Failed to generate puzzle for %s", item["title"])
+            continue
+
+        if docx:
+            # Save DOCX with grid and solution
             output_docx = f"{item['title'].lower().replace(' ', '_')}_wordsearch.docx"
             output_docx = os.path.join(args.output, output_docx)
+
             docx_export.save_wordsearch_to_docx(
                 output_docx, item["title"], puzzle.grid, puzzle.words, puzzle.solution
+            )
+
+        if pdf:
+            # Get highlights for the solution
+            highlights = puzzle.get_highlights()
+
+            # Save PDF with grid and solution
+            output_pdf = f"{item['title'].lower().replace(' ', '_')}_wordsearch.pdf"
+            output_pdf = os.path.join(args.output, output_pdf)
+            pdf_render.render_wordsearch_pdf(
+                output_pdf,
+                item["title"],
+                puzzle.grid,
+                puzzle.words,
+                highlights=highlights,
             )

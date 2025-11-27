@@ -27,6 +27,7 @@ classifiers = [
 ]
 dependencies = [
     "python-docx>=1.2.0",
+    "reportlab>=4.4.5",
 ]
 
 [project.optional-dependencies]
