@@ -246,9 +246,10 @@ class WordSearch:
             word = entry["word"]
             start = entry["start"]
             direction = entry["direction"]
+            arrows = direction_to_arrow(direction)
             length = entry["length"]
             print(
-                f"\tWord: {word}, Start: {start}, Direction: {direction}, Length: {length}"
+                f"\tWord: {word}, Start: {start}, Direction: {arrows}, Length: {length}"
             )
 
     def get_highlights(self):
@@ -290,6 +291,20 @@ def generate_puzzle(puzzle_title, word_list, grid_size, use_basic, verbose=False
     return wordsearch
 
 
+def direction_to_arrow(direction):
+    arrows = {
+        "horizontal_left_to_right": "\u2192",   # →
+        "horizontal_right_to_left": "\u2190",   # ←
+        "vertical_top_to_bottom": "\u2193",        # ↓
+        "vertical_bottom_to_top": "\u2191",        # ↑
+        "diagonal_top_left_to_bottom_right": "\u2198",  # ↘
+        "diagonal_bottom_right_to_top_left": "\u2196",  # ↖
+        "diagonal_top_right_to_bottom_left": "\u2199",  # ↙
+        "diagonal_bottom_left_to_top_right": "\u2197",  # ↗
+    }
+    return arrows.get(direction, "?")
+
+
 if __name__ == "__main__":
 
     TITLE = "Fruits"
@@ -303,6 +318,6 @@ if __name__ == "__main__":
         "Jack Fruit",
     ]
     SIZE = 12
-    BASIC = True
+    BASIC = False
 
     generate_puzzle(TITLE, WORDS, SIZE, BASIC, verbose=True)
