@@ -275,6 +275,10 @@ def generate_puzzle(puzzle_title, word_list, grid_size, use_basic, verbose=False
     Returns:
         WordSearch: The generated word search puzzle object.
     """
+    if verbose:
+        logging.info(
+            "Generating puzzle '%s' with size %dx%d", puzzle_title, grid_size, grid_size
+        )
     try:
         wordsearch = WordSearch(puzzle_title, word_list, grid_size, use_basic)
     except ValueError as ve:
@@ -288,15 +292,19 @@ def generate_puzzle(puzzle_title, word_list, grid_size, use_basic, verbose=False
         wordsearch.show_grid()
         wordsearch.show_solution()
 
+    if verbose:
+        logging.info("Puzzle '%s' generation completed.\n", puzzle_title)
+
     return wordsearch
 
 
 def direction_to_arrow(direction):
+    """Map direction string to arrow character."""
     arrows = {
-        "horizontal_left_to_right": "\u2192",   # →
-        "horizontal_right_to_left": "\u2190",   # ←
-        "vertical_top_to_bottom": "\u2193",        # ↓
-        "vertical_bottom_to_top": "\u2191",        # ↑
+        "horizontal_left_to_right": "\u2192",  # →
+        "horizontal_right_to_left": "\u2190",  # ←
+        "vertical_top_to_bottom": "\u2193",  # ↓
+        "vertical_bottom_to_top": "\u2191",  # ↑
         "diagonal_top_left_to_bottom_right": "\u2198",  # ↘
         "diagonal_bottom_right_to_top_left": "\u2196",  # ↖
         "diagonal_top_right_to_bottom_left": "\u2199",  # ↙

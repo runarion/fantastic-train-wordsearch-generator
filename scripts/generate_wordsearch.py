@@ -57,6 +57,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     for j, item in enumerate(data["puzzles"]):
+
         # default size
         size = 15
         puzzle = None
@@ -81,6 +82,9 @@ if __name__ == "__main__":
         highlights = puzzle.get_highlights()
 
         if args.docx:
+            if not args.output:
+                logging.error("Output folder must be specified for DOCX output")
+                continue
             # Save DOCX with grid and solution
             output_docx = f"{item['title'].lower().replace(' ', '_')}_wordsearch.docx"
             output_docx = os.path.join(args.output, output_docx)
@@ -89,9 +93,12 @@ if __name__ == "__main__":
             )
 
         if args.pdf:
+            if not args.output:
+                logging.error("Output folder must be specified for PDF output")
+                continue
             # Save PDF with grid and solution
             output_pdf = f"{item['title'].lower().replace(' ', '_')}_wordsearch.pdf"
             output_pdf = os.path.join(args.output, output_pdf)
             pdf_render.render_wordsearch_pdf(
-                output_pdf, item["title"], puzzle.grid, puzzle.words, highlights
+                output_pdf, item["title"], puzzle.grid, puzzle.words, highlights, None
             )
