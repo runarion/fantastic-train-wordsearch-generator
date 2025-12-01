@@ -4,6 +4,8 @@ and their solutions to PDF format using the ReportLab library.
 """
 
 import os
+import math
+from enum import Enum
 
 from reportlab.lib.pagesizes import letter
 from reportlab.platypus import (
@@ -15,8 +17,14 @@ from reportlab.platypus import (
     PageBreak,
 )
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.lib import colors
 from wordsearch import direction_to_delta
+
+
+class HighlightStyle(Enum):
+    """Enumeration for highlight styles in solution rendering."""
+
+    RECT = "rect"
+    FILL = "fill"
 
 
 # pylint: disable=too-many-arguments,too-many-locals,too-many-statements,too-many-positional-arguments
@@ -27,6 +35,7 @@ def render_wordsearch_pdf(
     word_list,
     highlights=None,
     solution_output=None,
+    highlight_style=HighlightStyle.RECT,
 ):
     """
     Render a wordsearch puzzle and its solution to a PDF file.
@@ -40,6 +49,8 @@ def render_wordsearch_pdf(
             'direction', 'length'}. If None, no solution is drawn.
         solution_output (str): Optional. File to save the solution PDF.
             If None, solution is added as a second page in the puzzle PDF.
+        highlight_style (HighlightStyle): Style for highlighting solution words.
+            HighlightStyle.RECT for rectangle outline, HighlightStyle.FILL for filled background.
     """
     # Ensure the output directory exists
     os.makedirs(os.path.dirname(puzzle_output), exist_ok=True)
@@ -72,7 +83,7 @@ def render_wordsearch_pdf(
     elements.append(Spacer(1, grid_height + 40))
 
     # Prepare word list in multiple columns, uppercase
-    num_columns = 3
+    num_columns = 4
     words_upper = [w.upper() for w in word_list]
     rows = (len(words_upper) + num_columns - 1) // num_columns
     word_table_data = []
@@ -168,14 +179,73 @@ def render_wordsearch_pdf(
                 for h in highlights:
                     start_r, start_c = h["start"]
                     dr, dc = direction_to_delta(h["direction"])
-                    for i in range(h["length"]):
-                        rr = start_r + dr * i
-                        cc = start_c + dc * i
-                        x = start_x + cc * cell_size
-                        y = start_y - (rr + 1) * cell_size
-                        canvas.setFillColorRGB(1, 1, 0, alpha=0.3)  # Yellow highlight
-                        canvas.rect(x, y, cell_size, cell_size, fill=1, stroke=0)
-                canvas.setFillColor(colors.black)  # Reset color
+                    length = h["length"]
+
+                    if highlight_style == HighlightStyle.RECT:
+
+                        # Calculate the rectangle's start and end positions
+                        end_r = start_r + dr * (length - 1)
+                        end_c = start_c + dc * (length - 1)
+
+                        # Find top-left corner (regardless of direction)
+                        min_r = min(start_r, end_r)
+                        min_c = min(start_c, end_c)
+
+                        x = start_x + min_c * cell_size
+                        y = start_y - min_r * cell_size
+
+                        # Compute rectangle parameters
+                        if dr == 0:  # Horizontal
+                            rect_width = cell_size * length
+                            rect_height = cell_size * 0.6
+                            angle = 0
+                        elif dc == 0:  # Vertical
+                            rect_width = cell_size * 0.6
+                            rect_height = cell_size * length
+                            angle = 0
+                        else:  # Diagonal
+                            rect_width = (cell_size * length * 1.42) - (
+                                cell_size * 0.4
+                            )  # Approximate diagonal length
+                            rect_height = cell_size * 0.6
+                            # Angle in degrees: atan2(dr, dc)
+                            angle = math.degrees(math.atan2(dr, dc))
+
+                        # Center of the rectangle (middle of the word)
+                        mid_r = start_r + dr * (length - 1) / 2
+                        mid_c = start_c + dc * (length - 1) / 2
+                        center_x = start_x + (mid_c + 0.5) * cell_size
+                        center_y = start_y - (mid_r + 0.5) * cell_size
+
+                        # Draw rotated rounded rectangle
+                        canvas.saveState()
+                        canvas.translate(center_x, center_y)
+                        canvas.rotate(-angle)  # Negative because PDF y-axis is down
+                        canvas.setStrokeColorRGB(1, 0.6, 0)
+                        canvas.setLineWidth(1.5)
+                        radius = cell_size * 0.35
+                        canvas.roundRect(
+                            -rect_width / 2,
+                            -rect_height / 2,
+                            rect_width,
+                            rect_height,
+                            radius,
+                            fill=0,
+                            stroke=1,
+                        )
+                        canvas.restoreState()
+
+                    elif highlight_style == HighlightStyle.FILL:
+                        # Fill background of the word
+                        for i in range(length):
+                            rr = start_r + dr * i
+                            cc = start_c + dc * i
+                            lx = start_x + cc * cell_size
+                            ly = start_y - (rr + 1) * cell_size
+                            canvas.setFillColorRGB(
+                                1, 1, 0, alpha=0.3
+                            )  # Yellow highlight
+                            canvas.rect(lx, ly, cell_size, cell_size, fill=1, stroke=0)
 
         if solution_output is None:
             # Add solution as a second page in the same PDF
