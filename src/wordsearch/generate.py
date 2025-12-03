@@ -153,10 +153,10 @@ class WordSearch:
             (0, -1),  # horizontal right->left
             (1, 0),  # vertical top->bottom
             (-1, 0),  # vertical bottom->top
-            (1, 1),  # diagonal down-right
-            (-1, -1),  # diagonal up-left
-            (1, -1),  # diagonal down-left
-            (-1, 1),  # diagonal up-right
+            (1, 1),  # diagonal top-left->bottom-right
+            (-1, -1),  # diagonal bottom-right->top-left
+            (1, -1),  # diagonal bottom-left->top-right
+            (-1, 1),  # diagonal top-right->bottom-left
         ]
         return self._find_best_position(word, directions)
 
