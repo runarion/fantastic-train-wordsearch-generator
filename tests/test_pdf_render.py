@@ -1,5 +1,5 @@
 import os
-from wordsearch import pdf_render
+from src.wordsearch import pdf_render
 
 def test_render_wordsearch_pdf(tmp_path):
 
