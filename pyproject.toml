@@ -86,7 +86,14 @@ skip_gitignore = true
 [tool.pylint.main]
 max-line-length = 100
 disable = [
-    "C0103",  # Invalid name (for variables)
+]
+
+[tool.pylint.tests]
+# Relax rules for test files
+disable = [
+    "missing-docstring",
+    "too-many-locals",
+    "too-many-statements",
 ]
 
 [tool.pylint.messages_control]

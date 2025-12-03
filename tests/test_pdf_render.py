@@ -1,5 +1,5 @@
-import os
 from wordsearch import pdf_render
+
 
 def test_render_wordsearch_pdf(tmp_path):
 
@@ -25,6 +25,8 @@ def test_render_wordsearch_pdf(tmp_path):
         "Grace",
         "Heidi",
     ]
+    # fmt: off
+    # pylint: disable=line-too-long
     highlights = [
         {"word": "Alice", "start": (0, 0), "direction": "horizontal_left_to_right", "length": 5},
         {"word": "Bill" , "start": (1, 0), "direction": "horizontal_left_to_right", "length": 4},
@@ -35,7 +37,8 @@ def test_render_wordsearch_pdf(tmp_path):
         {"word": "Grace", "start": (6, 2), "direction": "diagonal_bottom_left_to_top_right", "length": 5},
         {"word": "Heidi", "start": (7, 4), "direction": "diagonal_bottom_right_to_top_left", "length": 5},
     ]
-
+    # fmt: on
+    # pylint: enable=line-too-long
 
     puzzle_pdf = tmp_path / "test_wordsearch_puzzle.pdf"
     solution_pdf = tmp_path / "test_wordsearch_solution.pdf"
@@ -48,7 +51,7 @@ def test_render_wordsearch_pdf(tmp_path):
             grid,
             words,
             highlights=highlights,
-            solution_output=str(solution_pdf)
+            solution_output=str(solution_pdf),
         )
         pdf_render.render_wordsearch_pdf(
             str(combined_pdf),
@@ -56,7 +59,7 @@ def test_render_wordsearch_pdf(tmp_path):
             grid,
             words,
             highlights=highlights,
-            solution_output=None
+            solution_output=None,
         )
     except Exception as e:
         print(f"Error during PDF generation: {e}")
@@ -66,7 +69,10 @@ def test_render_wordsearch_pdf(tmp_path):
     assert solution_pdf.exists()
     assert combined_pdf.exists()
 
-    # to see the generated files paths, uncomment the following lines and run pytest with option '-s'
+    # to see the generated files paths,
+    # - uncomment the following lines
+    # - and run pytest with option '-s'
+
     # print(f"Puzzle PDF: {puzzle_pdf}")
     # print(f"Solution PDF: {solution_pdf}")
     # print(f"Combined PDF: {combined_pdf}")
