@@ -220,7 +220,7 @@ def render_wordsearch_pdf(
                         # Draw rotated rounded rectangle
                         canvas.saveState()
                         canvas.translate(center_x, center_y)
-                        canvas.rotate(-angle)  # Negative because PDF y-axis is down
+                        canvas.rotate(-angle)  # Negative because PDF y-axis is inverted (0 at top)
                         canvas.setStrokeColorRGB(1, 0.6, 0)
                         canvas.setLineWidth(1.5)
                         radius = cell_size * 0.35
