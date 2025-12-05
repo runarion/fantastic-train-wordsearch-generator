@@ -182,6 +182,7 @@ def render_wordsearch_pdf(
                     length = h["length"]
 
                     if highlight_style == HighlightStyle.RECT:
+                        rect_width_factor = 0.6
 
                         # Calculate the rectangle's start and end positions
                         end_r = start_r + dr * (length - 1)
@@ -197,17 +198,17 @@ def render_wordsearch_pdf(
                         # Compute rectangle parameters
                         if dr == 0:  # Horizontal
                             rect_width = cell_size * length
-                            rect_height = cell_size * 0.6
+                            rect_height = cell_size * rect_width_factor
                             angle = 0
                         elif dc == 0:  # Vertical
-                            rect_width = cell_size * 0.6
+                            rect_width = cell_size * rect_width_factor
                             rect_height = cell_size * length
                             angle = 0
                         else:  # Diagonal
                             rect_width = (cell_size * length * 1.42) - (
                                 cell_size * 0.4
                             )  # Approximate diagonal length
-                            rect_height = cell_size * 0.6
+                            rect_height = cell_size * rect_width_factor
                             # Angle in degrees: atan2(dr, dc)
                             angle = math.degrees(math.atan2(dr, dc))
 
@@ -220,7 +221,9 @@ def render_wordsearch_pdf(
                         # Draw rotated rounded rectangle
                         canvas.saveState()
                         canvas.translate(center_x, center_y)
-                        canvas.rotate(-angle)  # Negative because PDF y-axis is inverted (0 at top)
+                        canvas.rotate(
+                            -angle
+                        )  # Negative because PDF y-axis is inverted (0 at top)
                         canvas.setStrokeColorRGB(1, 0.6, 0)
                         canvas.setLineWidth(1.5)
                         radius = cell_size * 0.35
@@ -272,6 +275,89 @@ def render_wordsearch_pdf(
     else:
         # No solution, just build the puzzle
         doc.build(elements, onFirstPage=draw_grid)
+
+
+def draw_solution_grid_for_book(
+    canvas, pos_x, pos_y, grid, highlights, cell_size, title
+):
+    """
+    Draws a solution grid with highlights for inclusion in a PDF book.
+    Args:
+        canvas: ReportLab canvas object.
+        pos_x (float): X position to start drawing the grid.
+        pos_y (float): Y position to start drawing the grid.
+        grid (list of list of str): The letter grid.
+        highlights (list of dict): Each dict: {'word', 'start', 'direction', 'length'}.
+        cell_size (float): Size of each cell in the grid.
+        title (str): Title of the puzzle.
+    """
+    # Draw title
+    canvas.setFont("Helvetica-Bold", 12)
+    canvas.drawCentredString(
+        pos_x + (len(grid) * cell_size) / 2,
+        pos_y + len(grid) * cell_size + 14,
+        title + " - Solution",
+    )
+    # Draw outer border
+    canvas.setLineWidth(1.5)
+    canvas.rect(pos_x, pos_y, len(grid) * cell_size, len(grid) * cell_size)
+    # Draw letters
+    canvas.setFont("Helvetica-Bold", int(cell_size * 0.6))
+    for r, row in enumerate(grid):
+        for c, cell_letter in enumerate(row):
+            x = pos_x + c * cell_size + cell_size / 2
+            y = (
+                pos_y
+                + (len(grid) - r - 1) * cell_size
+                + cell_size / 2
+                - cell_size * 0.2
+            )
+            canvas.drawCentredString(x, y, cell_letter.upper())
+    # Draw highlights (rectangles)
+    if highlights:
+        for h in highlights:
+            rect_width_factor = 0.6
+            start_r, start_c = h["start"]
+            dr, dc = direction_to_delta(h["direction"])
+            length = h["length"]
+            # Compute rectangle parameters (horizontal/vertical/diagonal)
+            if dr == 0:  # Horizontal
+                rect_width = cell_size * length
+                rect_height = cell_size * rect_width_factor
+                angle = 0
+            elif dc == 0:  # Vertical
+                rect_width = cell_size * rect_width_factor
+                rect_height = cell_size * length
+                angle = 0
+            else:  # Diagonal
+                rect_width = (cell_size * length * 1.42) - (
+                    cell_size * (1 - rect_width_factor)
+                )
+                rect_height = cell_size * rect_width_factor
+
+                angle = math.degrees(math.atan2(dr, dc))
+            # Center of the rectangle (middle of the word)
+            mid_r = start_r + dr * (length - 1) / 2
+            mid_c = start_c + dc * (length - 1) / 2
+            center_x = pos_x + (mid_c + 0.5) * cell_size
+            center_y = pos_y + (len(grid) - (mid_r + 0.5)) * cell_size
+            # Draw rotated rounded rectangle
+            canvas.saveState()
+            canvas.translate(center_x, center_y)
+            canvas.rotate(-angle)
+            canvas.setStrokeColorRGB(1, 0.6, 0)
+            canvas.setLineWidth(1.5)
+            radius = cell_size * 0.35
+            canvas.roundRect(
+                -rect_width / 2,
+                -rect_height / 2,
+                rect_width,
+                rect_height,
+                radius,
+                fill=0,
+                stroke=1,
+            )
+            canvas.restoreState()
 
 
 if __name__ == "__main__":
