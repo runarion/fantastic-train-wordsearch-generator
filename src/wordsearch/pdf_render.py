@@ -276,7 +276,7 @@ def render_wordsearch_pdf(
 
 if __name__ == "__main__":
     # Example usage
-    example_title = "Sample Wordsearch: Colors"
+    EXAMPLE_TITLE = "Sample Wordsearch: Colors"
     # fmt: off
     example_wordsearch_result = {
         "grid": [
@@ -361,7 +361,7 @@ if __name__ == "__main__":
     # Example 1: Separate puzzle and solution PDFs
     render_wordsearch_pdf(
         puzzle_output=example_puzzle_output,
-        title=example_title,
+        title=EXAMPLE_TITLE,
         grid=example_wordsearch_result["grid"],
         word_list=example_wordsearch_result["words"],
         highlights=example_highlights,
@@ -371,7 +371,7 @@ if __name__ == "__main__":
     # Example 2: Combined puzzle and solution in one PDF
     render_wordsearch_pdf(
         puzzle_output=example_combined_output,
-        title=example_title,
+        title=EXAMPLE_TITLE,
         grid=example_wordsearch_result["grid"],
         word_list=example_wordsearch_result["words"],
         highlights=example_highlights,
