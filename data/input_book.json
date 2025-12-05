@@ -1,0 +1,49 @@
+{
+  "puzzles": [
+    {
+      "title": "Jungle Animals",
+      "words": [
+        "TIGER", "MONKEY", "GORILLA", "LEOPARD", "SLOTH",
+        "JAGUAR", "PARROT", "CHIMP", "TOUCAN", "PANTHER",
+        "COBRA", "IGUANA", "ANTEATER", "HYENA", "BABOON",
+        "CROCODILE", "MACAW", "ORANGUTAN", "BOA", "PEACOCK",
+        "TAPIR", "FROG", "GECKO", "MAMBA"
+      ],
+      "size": 16
+    },
+    {
+      "title": "Ocean Animals",
+      "words": [
+        "SHARK", "WHALE", "DOLPHIN", "OCTOPUS", "SEAL",
+        "MANATEE", "TURTLE", "SQUID", "CRAB", "LOBSTER",
+        "JELLYFISH", "CLOWNFISH", "EEL", "ORCA", "SEAHORSE",
+        "RAY", "ANCHOVY", "PLANKTON", "BARRACUDA", "SALMON",
+        "STARFISH", "SEAURCHIN", "MORAY", "FLUKE"
+      ],
+      "size": 16
+    },
+    {
+      "title": "Farm Animals",
+      "words": [
+        "COW", "PIG", "SHEEP", "GOAT", "HORSE",
+        "CHICKEN", "DUCK", "GOOSE", "DOG", "CAT",
+        "RABBIT", "DONKEY", "TURKEY", "LLAMA", "ALPACA",
+        "ROOSTER", "BULL", "CALF", "FOAL", "MULE",
+        "PONY", "HEN", "LAMB", "KID"
+      ],
+      "size": 16
+    },
+    {
+      "title": "Wildlife Around the World",
+      "words": [
+        "ELEPHANT", "KANGAROO", "PANDA", "KOALA", "CAMEL",
+        "RHINO", "GIRAFFE", "ZEBRA", "WOLF", "BEAR",
+        "LYNX", "BISON", "OTTER", "REINDEER", "WALRUS",
+        "IBEX", "TAPIR", "BADGER", "PLATYPUS", "MEERKAT",
+        "ANTELOPE", "FLAMINGO", "MOOSE", "HEDGEHOG"
+      ],
+      "size": 16
+    }
+  ]
+}
+
