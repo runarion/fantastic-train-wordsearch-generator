@@ -53,13 +53,17 @@ def create_solution_page(solutions_chunk, output_pdf):
     grid_area = (page_width - 2 * margin) / 2  # 2 columns
     grid_positions = [
         (margin, page_height / 2 + margin / 2),  # Top-left
-        (page_width / 2 + margin / 2, page_height / 2 + margin / 2),  # Top-right
+        (page_width / 2 + margin / 2,
+         page_height / 2 + margin / 2),  # Top-right
         (margin, margin),  # Bottom-left
-        (page_width / 2 + margin / 2, margin),  # Bottom-right
+        (page_width / 2 + margin / 2,
+         margin),  # Bottom-right
     ]
 
     c = canvas.Canvas(output_pdf, pagesize=letter)
-    for position, (sol_title, sol_grid, sol_highlights) in enumerate(solutions_chunk):
+    for position, (sol_title, sol_grid, sol_highlights) in enumerate(
+            solutions_chunk
+    ):
         grid_size = len(sol_grid)
         cell_size = grid_area / grid_size
         pos_x, pos_y = grid_positions[position]
@@ -78,7 +82,10 @@ if __name__ == "__main__":
     parser.add_argument("input", help="input file, json format")
     parser.add_argument("output", help="output folder")
     parser.add_argument(
-        "-n", "--name", help="name of the output book (without extension)", default=None
+        "-n",
+        "--name",
+        help="name of the output book (without extension)",
+        default=None
     )
 
     args = parser.parse_args()
@@ -91,7 +98,7 @@ if __name__ == "__main__":
     if args.name:
         puzzle_name = args.name
     args.output = os.path.join(args.output, f"{puzzle_name}_book.pdf")
-s
+
     puzzles = []
     solutions = []
 
@@ -148,7 +155,9 @@ s
 
         # --- Solutions: 4 per page ---
         for i in range(0, len(solutions), 4):
-            chunk = solutions[i : i + 4]
+            # fmt: off
+            chunk = solutions[i:i + 4]
+            # fmt: on
             solution_pdf = os.path.join(tmpdir, f"solution_{i//4}.pdf")
             create_solution_page(chunk, solution_pdf)
             merger.append(solution_pdf)
