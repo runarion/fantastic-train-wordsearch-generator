@@ -101,6 +101,8 @@ if __name__ == "__main__":
 
     puzzles = []
     solutions = []
+    puzzle_count = len(data["puzzles"])
+    print(f"Generating book with {puzzle_count} puzzles...")
 
     # Generate puzzles and solutions
     for item in data["puzzles"]:
@@ -118,7 +120,7 @@ if __name__ == "__main__":
         puzzles.append((item["title"], puzzle.grid, puzzle.words))
         solutions.append((item["title"], puzzle.grid, puzzle.get_highlights()))
 
-        # Use a temp directory for intermediate PDFs
+    # Use a temp directory for intermediate PDFs
     with tempfile.TemporaryDirectory() as tmpdir:
         merger = PdfMerger()
 

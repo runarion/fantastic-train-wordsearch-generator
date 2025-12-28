@@ -62,7 +62,7 @@ def render_wordsearch_pdf(
         parent=styles["Title"],
         fontSize=int(styles["Title"].fontSize * 0.8),
     )
-    page_margin = 36  # 0.5 inch margin
+    page_margin = 20  # Reduced margin for larger grid, 0.28 inch
     # cell_margin = 12  # 0.2 inch margin for table cells
 
     # --- Puzzle PDF ---
@@ -70,7 +70,7 @@ def render_wordsearch_pdf(
     elements = []
     # Title in uppercase and centered
     elements.append(Paragraph(title.upper(), styles["Title"]))
-    elements.append(Spacer(1, 24))  # Increased space after title
+    elements.append(Spacer(1, 48))  # Increased space after title
 
     # Calculate grid size for spacer
     page_width, page_height = letter
@@ -80,7 +80,7 @@ def render_wordsearch_pdf(
     cell_size = min(available_width, available_height) / grid_size
     grid_height = cell_size * grid_size
     # Add enough space for the grid and a little extra
-    elements.append(Spacer(1, grid_height + 40))
+    elements.append(Spacer(1, grid_height - 18))
 
     # Prepare word list in multiple columns, uppercase
     num_columns = 4
@@ -105,7 +105,7 @@ def render_wordsearch_pdf(
         TableStyle(
             [
                 ("ALIGN", (0, 0), (-1, -1), "CENTER"),  # Center text in each cell
-                ("FONTSIZE", (0, 0), (-1, -1), 12),
+                ("FONTSIZE", (0, 0), (-1, -1), 14),
                 ("LEFTPADDING", (0, 0), (-1, -1), 6),
                 ("RIGHTPADDING", (0, 0), (-1, -1), 6),
             ]
