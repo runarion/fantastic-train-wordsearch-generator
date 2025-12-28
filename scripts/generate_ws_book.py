@@ -15,35 +15,25 @@ from PyPDF2 import PdfMerger
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 
+from intro import create_intro_pages, create_solution_intro_pages
 from wordsearch import generate
 from wordsearch import pdf_render
 
 
-def create_blank_page(output_pdf):
+def draw_page_number(c, page_num):
     """
-    Creates a blank page PDF.
-    """
-    page_width, page_height = letter
-    c = canvas.Canvas(output_pdf, pagesize=letter)
-    c.showPage()
-    c.save()
-
-
-def create_title_page(output_pdf, page_title):
-    """
-    Creates a title page PDF with the given title.
+    Draws a page number at the bottom center of a PDF page.
+    
+    Args:
+        c: ReportLab canvas object
+        page_num: Page number to display
     """
     page_width, page_height = letter
-    c = canvas.Canvas(output_pdf, pagesize=letter)
-    c.setFont("Helvetica-Bold", 36)
-
-    upper_title = page_title.upper().replace("_", " ")
-    c.drawCentredString(page_width / 2, page_height / 2, upper_title)
-    c.showPage()
-    c.save()
+    c.setFont("Helvetica", 10)
+    c.drawCentredString(page_width / 2, 0.5 * 72, str(page_num))  # 0.5 inch from bottom
 
 
-def create_solution_page(solutions_chunk, output_pdf):
+def create_solution_page(solutions_chunk, output_pdf, page_num=None):
     """
     Draws up to 4 solution grids on a single page and saves as PDF.
     """
@@ -55,9 +45,9 @@ def create_solution_page(solutions_chunk, output_pdf):
         (margin, page_height / 2 + margin / 2),  # Top-left
         (page_width / 2 + margin / 2,
          page_height / 2 + margin / 2),  # Top-right
-        (margin, margin),  # Bottom-left
+        (margin, margin + 50),  # Bottom-left (moved up)
         (page_width / 2 + margin / 2,
-         margin),  # Bottom-right
+         margin + 50),  # Bottom-right (moved up)
     ]
 
     c = canvas.Canvas(output_pdf, pagesize=letter)
@@ -71,6 +61,11 @@ def create_solution_page(solutions_chunk, output_pdf):
         pdf_render.draw_solution_grid_for_book(
             c, pos_x, pos_y, sol_grid, sol_highlights, cell_size, sol_title
         )
+    
+    # Add page number if provided
+    if page_num is not None:
+        draw_page_number(c, page_num)
+    
     c.showPage()
     c.save()
 
@@ -94,7 +89,7 @@ if __name__ == "__main__":
     with open(args.input, "r", encoding="utf-8") as f:
         data = json.load(f)
 
-    puzzle_name = os.path.splitext(os.path.basename(args.input))[0]
+    puzzle_name = data.get("title", os.path.splitext(os.path.basename(args.input))[0]).replace(" ", "_").lower()
     if args.name:
         puzzle_name = args.name
     args.output = os.path.join(args.output, f"{puzzle_name}_book.pdf")
@@ -124,18 +119,11 @@ if __name__ == "__main__":
     with tempfile.TemporaryDirectory() as tmpdir:
         merger = PdfMerger()
 
-        # --- Blank page ---
-        blank_pdf = os.path.join(tmpdir, "blank.pdf")
-        create_blank_page(blank_pdf)
-        merger.append(blank_pdf)
-
-        # --- Title page ---
-        title_pdf = os.path.join(tmpdir, "title.pdf")
-        create_title_page(title_pdf, puzzle_name)
-        merger.append(title_pdf)
-
-        # --- Another blank page ---
-        merger.append(blank_pdf)
+        # --- Create intro pages ---
+        create_intro_pages(merger, tmpdir, puzzle_name, puzzle_count)
+        
+        # Track current page number (intro has 4 pages)
+        current_page = 5
 
         # --- Puzzles: one per page ---
         for idx, (title, grid, words) in enumerate(puzzles):
@@ -147,13 +135,16 @@ if __name__ == "__main__":
                 word_list=words,
                 highlights=None,
                 solution_output=None,
+                page_num=current_page,
             )
             merger.append(puzzle_pdf)
+            current_page += 1
 
         # --- Solutions title page ---
         solutions_title_pdf = os.path.join(tmpdir, "solutions_title.pdf")
-        create_title_page(solutions_title_pdf, "Solutions")
+        create_solution_intro_pages(solutions_title_pdf, "Solutions")
         merger.append(solutions_title_pdf)
+        current_page += 1  # Solutions title page
 
         # --- Solutions: 4 per page ---
         for i in range(0, len(solutions), 4):
@@ -161,8 +152,9 @@ if __name__ == "__main__":
             chunk = solutions[i:i + 4]
             # fmt: on
             solution_pdf = os.path.join(tmpdir, f"solution_{i//4}.pdf")
-            create_solution_page(chunk, solution_pdf)
+            create_solution_page(chunk, solution_pdf, page_num=current_page)
             merger.append(solution_pdf)
+            current_page += 1
 
         # Write the merged PDF
         merger.write(args.output)

@@ -1,4 +1,5 @@
 {
+  "title": "Animals",
   "puzzles": [
     {
       "title": "Jungle Animals",
@@ -43,7 +44,28 @@
         "ANTELOPE", "FLAMINGO", "MOOSE", "HEDGEHOG"
       ],
       "size": 16
+    },
+    {
+      "title": "Insects and Bugs",
+      "words": [
+        "BUTTERFLY", "BEETLE", "ANT", "BEE", "WASP",
+        "MOTH", "GRASSHOPPER", "CRICKET", "CATERPILLAR", "DRAGONFLY",
+        "FIREFLY", "TERMITE", "COCKROACH", "LADYBUG", "SPIDER",
+        "TICK", "FLEA", "MOSQUITO", "GNAT", "APHID",
+        "STINKBUG", "SILKWORM", "EARWIG", "DAMSELFLY"
+      ],
+      "size": 16
+    },
+    {
+      "title": "Birds of the World",
+      "words": [
+        "EAGLE", "SPARROW", "PIGEON", "SWAN", "FLAMINGO",
+        "PELICAN", "WOODPECKER", "KINGFISHER", "HUMMINGBIRD", "VULTURE",
+        "KITE", "FALCON", "PARAKEET", "CANARY", "NIGHTINGALE",
+        "CUCKOO", "TITMOUSE", "GOLDFINCH", "ROBIN", "BLUEJAY",
+        "ORIOLE", "GROSBEAK", "WREN", "LOON"
+      ],
+      "size": 16
     }
   ]
 }
-

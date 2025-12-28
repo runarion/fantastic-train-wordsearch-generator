@@ -1,0 +1,146 @@
+"""
+Functions for creating intro pages in crossword books - Animals theme.
+Adapted for 80 puzzles, large print, seniors target.
+"""
+
+import os
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from reportlab.lib.units import inch
+
+
+def create_blank_page(output_pdf):
+    """Creates a blank page PDF."""
+    page_width, page_height = letter
+    c = canvas.Canvas(output_pdf, pagesize=letter)
+    c.showPage()
+    c.save()
+
+
+def create_title_page(output_pdf, puzzle_name, puzzle_num=80):
+    """Creates a complete 3-page intro: blank + title + instructions."""
+    page_width, page_height = letter
+    c = canvas.Canvas(output_pdf, pagesize=letter)
+    
+    # Font sizes for large print (seniors-friendly)
+    title_font_size = 36
+    subtitle_font_size = 24
+    body_font_size = 14
+    small_font_size = 12
+    
+    # === PAGE 1: BLANK (already handled externally) ===
+    
+    # === PAGE 2: TITLE PAGE - DIVIDED INTO 2 LINES ===
+    c.setFont("Helvetica-Bold", 32)  # Slightly reduced from 36pt
+    c.drawCentredString(page_width / 2, page_height * 0.65, "ANIMAL CROSSWORD")
+    c.drawCentredString(page_width / 2, page_height * 0.58, "PUZZLES FOR ADULTS")
+
+    c.setFont("Helvetica-Bold", subtitle_font_size)
+    c.drawCentredString(page_width / 2, page_height * 0.48, f"{puzzle_num} Large-Print Themed Puzzles")
+
+    c.setFont("Helvetica", small_font_size)
+    c.drawCentredString(page_width / 2, page_height * 0.38, "Easy-to-Read • Perfect for Seniors")
+
+    # Your author name
+    author_name = "Puzzle Book Series"
+    c.setFont("Helvetica", small_font_size)
+    c.drawCentredString(page_width / 2, page_height * 0.1, author_name)
+    
+    c.showPage()
+    
+    # === PAGE 3: INSTRUCTIONS + ABOUT - LEFT ALIGNED ===
+    # Instructions title
+    c.setFont("Helvetica-Bold", 20)
+    c.drawString(1.5*inch, page_height * 0.85, "HOW TO SOLVE")
+    
+    # Instructions list
+    c.setFont("Helvetica", body_font_size)
+    y_pos = page_height * 0.75
+    instructions = [
+        "1. Read the themed word list on the right",
+        "2. Find where each word fits in the grid", 
+        "3. Write letters in the squares using pen or pencil",
+        "4. Check solutions at the back if needed"
+    ]
+    
+    for instr in instructions:
+        c.drawString(1.5*inch, y_pos, instr)
+        y_pos -= 0.4*inch
+    
+    # Large print note
+    c.setFont("Helvetica-Bold", body_font_size)
+    c.drawString(1.5*inch, y_pos, "Large print design for comfortable solving!")
+    
+    c.showPage()
+    
+    # === PAGE 4: ABOUT THIS BOOK (last before puzzles) ===
+    c.setFont("Helvetica-Bold", 20)
+    c.drawString(1.5*inch, page_height * 0.85, "ABOUT THIS BOOK")
+    
+    c.setFont("Helvetica", body_font_size)
+    y_pos = page_height * 0.75
+    about_text = [
+        "Discover 80 themed crossword puzzles featuring:",
+        "• Jungle Animals • Ocean Creatures • Farm Animals",
+        "• Wildlife Around the World • Insects & Bugs • Birds"
+    ]
+    
+    for line in about_text:
+        c.drawString(1.5*inch, y_pos, line)
+        y_pos -= 0.35*inch
+    
+    # Benefits
+    c.setFont("Helvetica-Bold", body_font_size)
+    c.drawString(1.5*inch, y_pos, "Perfect for:")
+    y_pos -= 0.3*inch
+    
+    benefits = [
+        "✓ Brain training & relaxation",
+        "✓ Seniors & adults", 
+        "✓ Vocabulary building",
+        "✓ Travel, gifts, or personal enjoyment"
+    ]
+    
+    c.setFont("Helvetica", body_font_size)
+    for benefit in benefits:
+        c.drawString(1.5*inch, y_pos, benefit)
+        y_pos -= 0.3*inch
+    
+    c.showPage()
+    c.save()
+
+
+def create_intro_pages(merger, tmpdir, puzzle_name, puzzle_count):
+    """
+    Creates and appends COMPLETE intro pages (4 total):
+    - Blank page (p1)
+    - Title page (p2) 
+    - Instructions page (p3)
+    - About page (p4)
+    Then puzzle pages start on page 5 (recto).
+    """
+    # Blank page 1
+    blank_pdf = os.path.join(tmpdir, "blank.pdf")
+    create_blank_page(blank_pdf)
+    merger.append(blank_pdf)
+    
+    # Complete 3-page intro (title + instructions + about)
+    intro_pdf = os.path.join(tmpdir, "intro_complete.pdf")
+    create_title_page(intro_pdf, puzzle_name, puzzle_count)
+    merger.append(intro_pdf)
+
+
+def create_solution_intro_pages(output_pdf, title_text):
+    """Creates a solution title page."""
+    page_width, page_height = letter
+    c = canvas.Canvas(output_pdf, pagesize=letter)
+    
+    # Font sizes
+    title_font_size = 36
+    
+    # Title
+    c.setFont("Helvetica-Bold", title_font_size)
+    c.drawCentredString(page_width / 2, page_height / 2, title_text)
+    
+    c.showPage()
+    c.save()

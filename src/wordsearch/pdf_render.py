@@ -36,6 +36,7 @@ def render_wordsearch_pdf(
     highlights=None,
     solution_output=None,
     highlight_style=HighlightStyle.RECT,
+    page_num=None,
 ):
     """
     Render a wordsearch puzzle and its solution to a PDF file.
@@ -51,6 +52,7 @@ def render_wordsearch_pdf(
             If None, solution is added as a second page in the puzzle PDF.
         highlight_style (HighlightStyle): Style for highlighting solution words.
             HighlightStyle.RECT for rectangle outline, HighlightStyle.FILL for filled background.
+        page_num (int): Optional. Page number to display at the bottom of the page.
     """
     # Ensure the output directory exists
     os.makedirs(os.path.dirname(puzzle_output), exist_ok=True)
@@ -139,6 +141,11 @@ def render_wordsearch_pdf(
                 # Adjusted y calculation to center letters properly
                 y = start_y - r * cell_size - cell_size / 2 - cell_size * 0.2
                 canvas.drawCentredString(x, y, cell_letter.upper())
+        
+        # Draw page number if provided
+        if page_num is not None:
+            canvas.setFont("Helvetica", 10)
+            canvas.drawCentredString(page_width / 2, 0.5 * 72, str(page_num))  # 0.5 inch from bottom
 
     # --- Solution Page/PDF ---
     if highlights:
