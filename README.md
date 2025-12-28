@@ -115,6 +115,7 @@ python -m scripts.generate_wordsearch --help
 data/               # Sample input files
 scripts/            # Script to generate wordsearch puzzles
 src/wordsearch/     # Main package code
+src/intro/          # Introductory materials
 tests/              # Unit tests
 docs/               # Documentation
 LICENSE             # Apache 2.0 license

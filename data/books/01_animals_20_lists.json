@@ -1,0 +1,267 @@
+{
+  "title": "Animal",
+  "puzzles": [
+    {
+      "title": "Jungle Animals",
+      "words": [
+        "TIGER", "MONKEY", "GORILLA", "LEOPARD", "SLOTH",
+        "JAGUAR", "PARROT", "CHIMP", "TOUCAN", "PANTHER",
+        "COBRA", "IGUANA", "ANTEATER", "HYENA", "BABOON",
+        "CROCODILE", "MACAW", "ORANGUTAN", "BOA", "PEACOCK",
+        "TAPIR", "FROG", "GECKO", "MAMBA", "ANT", "BEE",
+        "WASP", "ANACONDA", "CAPYBARA", "TARANTULA"
+      ],
+      "size": 16,
+      "count": 24
+    },
+    {
+      "title": "Ocean Animals",
+      "words": [
+        "SHARK", "WHALE", "DOLPHIN", "OCTOPUS", "SEAL",
+        "MANATEE", "TURTLE", "SQUID", "CRAB", "LOBSTER",
+        "JELLYFISH", "CLOWNFISH", "EEL", "ORCA", "SEAHORSE",
+        "RAY", "ANCHOVY", "PLANKTON", "BARRACUDA", "SALMON",
+        "STARFISH", "SEAURCHIN", "MORAY", "FLUKE", "FISH", "CORAL",
+        "SEA LION", "CORMORANT", "BELUGA", "NARWHAL"
+      ],
+      "size": 16,
+      "count": 24
+    },
+    {
+      "title": "Farm Animals",
+      "words": [
+        "COW", "PIG", "SHEEP", "GOAT", "HORSE",
+        "CHICKEN", "DUCK", "GOOSE", "DOG", "CAT",
+        "RABBIT", "DONKEY", "TURKEY", "LLAMA", "ALPACA",
+        "ROOSTER", "BULL", "CALF", "FOAL", "MULE",
+        "PONY", "HEN", "LAMB", "KID", "HAMSTER", "GUINEAPIG",
+        "FERRET", "TORTOISE", "GECKO"
+      ],
+      "size": 16,
+      "count": 24
+    },
+    {
+      "title": "Wildlife Around the World",
+      "words": [
+        "ELEPHANT", "KANGaroo", "PANDA", "KOALA", "CAMEL",
+        "RHINO", "GIRAFFE", "ZEBRA", "WOLF", "BEAR",
+        "LYNX", "BISON", "OTTER", "REINDEER", "WALRUS",
+        "IBEX", "TAPIR", "BADGER", "PLATYPUS", "MEERKAT",
+        "ANTELOPE", "FLAMINGO", "MOOSE", "HEDGEHOG", "CAMEL", "DINGO",
+        "QUOKKA", "ECHIDNA"
+      ],
+      "size": 16,
+      "count": 24
+    },
+    {
+      "title": "Insects and Bugs",
+      "words": [
+        "BUTTERFLY", "BEETLE", "ANT", "BEE", "WASP",
+        "MOTH", "GRASSHOPPER", "CRICKET", "CATERPILLAR", "DRAGONFLY",
+        "FIREFLY", "TERMITE", "COCKROACH", "LADYBUG", "SPIDER",
+        "TICK", "FLEA", "MOSQUITO", "GNAT", "APHID",
+        "STINKBUG", "SILKWORM", "EARWIG", "DAMSELFLY", "LEECH", "SLUG",
+        "WOODLICE", "MILLIPEDES"
+      ],
+      "size": 16,
+      "count": 24
+    },
+    {
+      "title": "Birds of the World",
+      "words": [
+        "EAGLE", "SPARROW", "PIGEON", "SWAN", "FLAMINGO",
+        "PELICAN", "WOODPECKER", "KINGFISHER", "HUMMINGBIRD", "VULTURE",
+        "KITE", "FALCON", "PARAKEET", "CANARY", "NIGHTINGALE",
+        "CUCKOO", "TITMOUSE", "GOLDFINCH", "ROBIN", "BLUEJAY",
+        "ORIOLE", "GROSBEAK", "WREN", "LOON", "PARROT", "MACAW",
+        "OWL", "HERON", "KINGFISHER"
+      ],
+      "size": 16,
+      "count": 24
+    },
+    {
+      "title": "African Safari",
+      "words": [
+        "LION", "ZEBRA", "HIPPO", "RHINO", "CHEETAH",
+        "HYENA", "OSTRICH", "WILDEBEEST", "KUDU", "IMPALA",
+        "WARTHOG", "BUFFALO", "GIRAFFE", "ELEPHANT", "LEOPARD",
+        "CROCODILE", "MONKEY", "BABOON", "JACKAL", "SERVAL",
+        "PORCUPINE", "AARDVARK", "SPRINGBOK", "GEMSBOK", "MEERKAT",
+        "SABLEANTILOPE", "TOPI", "DIKDIK", "BUSHBABY"
+      ],
+      "size": 16,
+      "count": 24
+    },
+    {
+      "title": "Australian Wildlife",
+      "words": [
+        "KANGAROO", "KOALA", "PLATYPUS", "WALLABY", "WOMBAT",
+        "EM U", "DINGO", "QUOKKA", "TASMANIANDEVIL", "ECHIDNA",
+        "CASSOWARY", "KOOKABURRA", "CROCODILE", "FRILLLIZARD", "SUGLIDER",
+        "BILBY", "NUMBAT", "QUOLL", "POS SUM", "GOANNA",
+        "PYTHON", "TAIPAN", "BANDICOOT", "DUCKBILLED", "TURTLE", "SNAKE",
+        "LIZARD", "FROG"
+      ],
+      "size": 16,
+      "count": 24
+    },
+    {
+      "title": "North American Animals",
+      "words": [
+        "BEAR", "MOOSE", "ELK", "BISON", "WOLF",
+        "COUGAR", "BOBCAT", "FOX", "RACCOON", "SKUNK",
+        "BEAVER", "OTTER", "BADGER", "PORCUPINE", "LYNX",
+        "CARIBOU", "MOUNTAINSHEEP", "PRONGHORN", "COYOTE", "MUSKRAT",
+        "WOODCHUCK", "OPOSSUM", "ARMADILLO", "JAVELINA", "ALLIGATOR", "PRAIRIEDOG",
+        "SNAPPINGTURTLE", "HEDGEHOG", "CHIPMUNK", "SQUIRREL"
+      ],
+      "size": 16,
+      "count": 24
+    },
+    {
+      "title": "South American Animals",
+      "words": [
+        "JAGUAR", "LLAMA", "ALPACA", "TAPIR", "CAPYBARA",
+        "ANACONDA", "PIRANHA", "ARMADILLO", "GIANTANTEATER", "OCELOT",
+        "SPECTACLEDCAIMAN", "PUMA", "TAMANDUA", "PECCARY", "MANEDWOLF",
+        "SOUTHERNTAMPICO", "GIANTOTTER", "BROCKETDEER", "MARMOSET", "SACREDIBIS",
+        "TOUCAN", "MACAW", "HARPYEAGLE", "SLOTH", "COATI", "AGUTI",
+        "CUY", "YACARECAIMAN", "GUANACO", "POTO", "TITI MONKEY"
+      ],
+      "size": 16,
+      "count": 24
+    },
+    {
+      "title": "European Wildlife",
+      "words": [
+        "WOLF", "LYNX", "BROWNBEAR", "REINDEER", "IBEX",
+        "CHAMOIS", "REDDEER", "ROEDEER", "WILD BOAR", "FOX",
+        "BADGER", "OTTER", "BEAVER", "HARE", "STOAT",
+        "POLECAT", "MARTEN", "RED SQUIRREL", "EDGESHOG", "MOLE",
+        "SWAN", "HERON", "KINGFISHER", "OWL", "WOODPECKER", "CROW",
+        "MAGPIE", "FINCH", "GOLDFINCH", "BLACK"
+      ],
+      "size": 16,
+      "count": 24
+    },
+    {
+      "title": "Asian Animals",
+      "words": [
+        "PANDA", "TIGER", "SNOWLEOPARD", "RED PANDA", "YETI",
+        "GOLDENTAMARIN", "CLOUDEDLEOPARD", "SAOLA", "TAKIN", "SEROW",
+        "GAUR", "BINTURONG", "CLOUD RAT", "PHAYRESLANGUR", "HISPIDMOUSE",
+        "SAIMAA RINGEDSEAL", "AMURLEOPARD", "SIAMESECROC", "KOMODODRAGON", "ORANGUTAN",
+        "SUNBEAR", "GIANT SQUIRREL", "MALAYANWEASEL", "FISHCAT", "GHARIAL", "ASIANELEPHANT",
+        "WATERDEER", "DHOLE", "GIBBON", "LEOPARDCAT", "ASIANPITVIPER"
+      ],
+      "size": 16,
+      "count": 24
+    },
+    {
+      "title": "Arctic Animals",
+      "words": [
+        "POLARBEAR", "ARCTICFOX", "WALRUS", "SEAL", "NARWHAL",
+        "BELUGA", "MUSKOX", "ARCTICHARE", "LEMMING", "ARCTICWOLF",
+        "SNOWYOWL", "PTARMIGAN", "IVORYGULL", "RINGEDSEAL", "BEARDEDSEAL",
+        "HARPSEAL", "HOODEDSEAL", "WEDGEDTOEDSEAL", "CARIBOUSE", "ARCTICGROUND SQUIRREL",
+        "COLL AREDLEMMING", "NORTHERNBOGLEMMING", "SINGINGVOLE", "TUNDRAVOLE", "ARCTICTERN", "GULL",
+        "SANDERLING", "DUNLIN", "KNOT", "PHALAROPE"
+      ],
+      "size": 16,
+      "count": 24
+    },
+    {
+      "title": "Desert Animals",
+      "words": [
+        "CAMEL", "FENNECF OX", "SCORPION", "SIDEWINDER", "ROADRUNNER",
+        "GILA MONSTER", "JAVELINA", "KITFOX", "KANGAROORAT", "MEERKAT",
+        "BAT EARED FOX", "ADDER", "SANDCAT", "JERBOA", "SAHARA HORNEDVIPER",
+        "DROMEDARY", "OR YX", "ADD AX", "DUGONG", "TOPI",
+        "GRANTSGAZELLE", "BEISAORYX", "DANGEROUSVIPER", "SAURIAN", "DESERT TORTOISE",
+        "HORNEDLIZARD", "COYOTE", "BURROWINGOWL", "DESERTHEDGEHOG", "DESERTSPARROW", 
+        "SANDGROUSE", "AARDVARK"
+      ],
+      "size": 16,
+      "count": 24
+    },
+    {
+      "title": "Rainforest Animals",
+      "words": [
+        "SLoth", "TOUCAN", "POISONDARTFROG", "CAPUCHINMONKEY", "JAGUAR",
+        "ANACONDA", "TAPIR", "MACAW", "LEAFCUTTERANT", "SLOTHBEAR",
+        "HARPY EAGLE", "HOWLERMONKEY", "ARAWANA", "PIRANHA", "CAIMAN",
+        "TITI MONKEY", "GLIDINGFROG", "BUSHBABY", "COTTONMOUTH", "ELECTRIC EEL",
+        "AGUTI", "COATI", "TAMARIN", "BINTURONG", "POOTO",
+        "SPECTACLEDCAIMAN", "GIANTOTTER", "BROCKETDEER", "SACREDIBIS", "YAGUARETE"
+      ],
+      "size": 16,
+      "count": 24
+    },
+    {
+      "title": "Pets and Domestic Animals",
+      "words": [
+        "DOG", "CAT", "HAMSTER", "GUINEAPIG", "RABBIT",
+        "FISH", "BIRD", "TURTLE", "SNAKE", "LIZARD",
+        "FERRET", "CHINCHILLA", "TROPICALFISH", "PARROT", "CANARY",
+        "GERBIL", "TORTOISE", "GECKO", "HEDGEHOG", "LOVEBIRD",
+        "BUDGERIGAR", "SUGARGLIDER", "CAVY", "AXOLOTL", "TARANTULA",
+        "HAMSTERRAT", "PYTHON", "ANOLE", "SNAKEHEAD", "BETTA", "GOLDFISH",
+        "BUDGIE", "SILVERFISH"
+    ],
+      "size": 16,
+      "count": 24
+    },
+    {
+      "title": "Mythical Animals",
+      "words": [
+        "DRAGON", "UNICORN", "PHOENIX", "GRIFFIN", "MERMAID",
+        "CENTAUR", "HYDRA", "CHIMERA", "PEGASUS", "MINOTAUR",
+        "SIREN", "KRAKEN", "FAIRY", "TROLL", "GOBLIN",
+        "WYVERN", "BASILISK", "CYCLOPS", "LEPRECHAUN", "SATYR",
+        "GNOME", "IMP", "SELKIE", "YETI", "LOCHNESSMONSTER", "DRYAD",
+        "NAGA", "QUETZALCOATL", "JINN", "FOXFIRE", "TANIWHA", "AMMIT"
+      ],
+      "size": 16,
+      "count": 24
+    },
+    {
+      "title": "Nocturnal Animals",
+      "words": [
+        "OWL", "BAT", "RACCOON", "OPOSSUM", "FOX",
+        "HEDGEHOG", "MOLE", "COYOTE", "SKUNK", "AARDVARK",
+        "PORCUPINE", "TARS IER", "LEMU R", "BUSHBABY", "NIGHTINGALE",
+        "SUGARGLIDER", "FISH OWL", "WOLF", "JACKAL", "CAT",
+        "CIVET", "GALAGO", "TAPIR", "LEOPARD", "COATI", "TAMANDUA",
+        "BINTURONG", "COTTONMOUTH", "ELECTRIC EEL", "NIGHTHAWK", "LOON", "AUK"
+      ],
+      "size": 16,
+      "count": 24
+    },
+    {
+      "title": "Arboreal Animals",
+      "words": [
+        "MONKEY", "SLOTH", "KOALA", "CHIMPANZEE", "ORANGUTAN",
+        "GIBBON", "LEMUR", "TARS IER", "CATERPILLAR", "PARROT",
+        "MACAW", "SQUIRREL", "TREEFROG", "CROW", "WOODPECKER",
+        "CHAMELEON", "POTO", "CAPUCHIN", "BABOON", "TAMARIN",
+        "DRAGONFLY", "LIZARD", "SPIDER MONKEY", "BINTURONG", "SPECTACLEDCAIMAN",
+        "GIANTOTTER", "BROCKETDEER", "SACREDIBIS", "YAGUARETE"
+      ],
+      "size": 16,
+      "count": 24
+    },
+    {
+      "title": "Aquatic Animals",
+      "words": [
+        "FISH", "DOLPHIN", "SHARK", "WHALE", "OCTOPUS",
+        "SEAL", "SEA LION", "MANATEE", "TURTLE", "CRAB",
+        "LOBSTER", "JELLYFISH", "STARFISH", "CORAL", "SQUID",
+        "RAY", "EEL", "ANCHOVY", "CLOWNFISH", "PIRANHA",
+        "SEAHORSE", "PLANKTON", "CORMORANT", "OTTER", "CROCODILE",
+        "ALLIGATOR", "BELUGA", "NARWHAL", "WEDGEDTOEDSEAL", "DUGONG", "GHARIAL"
+      ],
+      "size": 16,
+      "count": 24
+    }    
+  ]
+}
