@@ -57,7 +57,9 @@ def save_wordsearch_to_docx(file_path, title, grid, words, highlights=None):
                 c += dc
 
     # Ensure the output directory exists and save the document
-    os.makedirs(os.path.dirname(file_path), exist_ok=True)
+    output_dir = os.path.dirname(file_path)
+    if output_dir:
+        os.makedirs(output_dir, exist_ok=True)
     doc.save(file_path)
 
 
@@ -73,7 +75,13 @@ if __name__ == "__main__":
         "words": ["ABCD", "EFGH", "IJKL", "MNOP"],
     }
     output_path = os.path.abspath(
-        os.path.join(os.path.dirname(__file__), "..", "..", "out", "wordsearch.docx")
+        os.path.join(
+            os.path.dirname(__file__),
+            "..",
+            "..",
+            "out",
+            "wordsearch.docx"
+        )
     )
     save_wordsearch_to_docx(
         output_path,
