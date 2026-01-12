@@ -21,19 +21,21 @@ from reportlab.pdfgen import canvas
 from intro import create_intro_pages, create_solution_intro_pages
 from wordsearch import generate
 from wordsearch import pdf_render
+from wordsearch import cover_image
 
 
 def draw_page_number(c, page_num):
     """
     Draws a page number at the bottom center of a PDF page.
-    
+
     Args:
         c: ReportLab canvas object
         page_num: Page number to display
     """
     page_width, page_height = letter
     c.setFont("Helvetica", 10)
-    c.drawCentredString(page_width / 2, 0.5 * 72, str(page_num))  # 0.5 inch from bottom
+    # 0.5 inch from bottom
+    c.drawCentredString(page_width / 2, 0.5 * 72, str(page_num))
 
 
 def create_solution_page(solutions_chunk, output_pdf, page_num=None):
@@ -43,19 +45,20 @@ def create_solution_page(solutions_chunk, output_pdf, page_num=None):
 
     page_width, page_height = letter
     margin = 36
-    grid_area = (page_width - 2 * margin) / 2  # 2 columns
+    # 2 columns
+    grid_area = (page_width - 2 * margin) / 2
     grid_positions = [
-        (margin, page_height / 2 + margin / 2),  # Top-left
-        (page_width / 2 + margin / 2,
-         page_height / 2 + margin / 2),  # Top-right
+        # Top-left
+        (margin, page_height / 2 + margin / 2),
+        # Top-right
+        (page_width / 2 + margin / 2, page_height / 2 + margin / 2),
         (margin, margin + 50),  # Bottom-left (moved up)
-        (page_width / 2 + margin / 2,
-         margin + 50),  # Bottom-right (moved up)
+        (page_width / 2 + margin / 2, margin + 50),  # Bottom-right (moved up)
     ]
 
     c = canvas.Canvas(output_pdf, pagesize=letter)
     for position, (sol_title, sol_grid, sol_highlights) in enumerate(
-            solutions_chunk
+        solutions_chunk
     ):
         grid_size = len(sol_grid)
         cell_size = grid_area / grid_size
@@ -64,11 +67,11 @@ def create_solution_page(solutions_chunk, output_pdf, page_num=None):
         pdf_render.draw_solution_grid_for_book(
             c, pos_x, pos_y, sol_grid, sol_highlights, cell_size, sol_title
         )
-    
+
     # Add page number if provided
     if page_num is not None:
         draw_page_number(c, page_num)
-    
+
     c.showPage()
     c.save()
 
@@ -83,14 +86,14 @@ if __name__ == "__main__":
         "-n",
         "--name",
         help="name of the output book (without extension)",
-        default=None
+        default=None,
     )
     parser.add_argument(
         "-c",
         "--copies",
         type=int,
         help="number of copies per puzzle (default: 4)",
-        default=4
+        default=4,
     )
 
     args = parser.parse_args()
@@ -99,26 +102,37 @@ if __name__ == "__main__":
     with open(args.input, "r", encoding="utf-8") as f:
         data = json.load(f)
 
-    puzzle_name = data.get("title", os.path.splitext(os.path.basename(args.input))[0]).replace(" ", "_").lower()
+    puzzle_name = (
+        data.get("title", os.path.splitext(os.path.basename(args.input))[0])
+        .replace(" ", "_")
+        .lower()
+    )
     if args.name:
         puzzle_name = args.name
-    args.output = os.path.join(args.output, f"{puzzle_name}_book.pdf")
+
+    output_dir = args.output
+    pdf_output_path = os.path.join(output_dir, f"{puzzle_name}_book.pdf")
 
     puzzles = []
     solutions = []
     base_puzzle_count = len(data["puzzles"])
     total_puzzle_count = base_puzzle_count * args.copies
-    print(f"Generating book with {total_puzzle_count} puzzles ({base_puzzle_count} themes × {args.copies} variations)...")
+    print(
+        f"Generating book with {total_puzzle_count} puzzles "
+        f"({base_puzzle_count} themes × {args.copies} variations)..."
+    )
 
-    # Generate puzzles and solutions - create multiple variations for each theme
+    # Generate puzzles and solutions - create multiple variations for
+    # each theme
     for item in data["puzzles"]:
         size = item.get("size", 15)
         count = item.get("count", 20)
         base_title = item["title"]
-        
+
         # Generate multiple variations of each puzzle
         for variation in range(1, args.copies + 1):
-            # pick different random list of count words from item["words"]
+            # pick different random list of count words from
+            # item["words"]
             selected_words = random.sample(item["words"], count)
             puzzle = generate.generate_puzzle(
                 base_title,
@@ -130,13 +144,28 @@ if __name__ == "__main__":
 
             if puzzle is None:
                 continue
-            
+
             # Add variation number to title
             numbered_title = f"{base_title} {variation}"
             puzzles.append((numbered_title, puzzle.grid, puzzle.words))
-            solutions.append((numbered_title, puzzle.grid, puzzle.get_highlights()))
+            solutions.append(
+                (numbered_title, puzzle.grid, puzzle.get_highlights())
+            )
 
     print(f"Successfully generated {len(puzzles)} puzzles")
+
+    # only for the first puzzle generate the cover image in the
+    # output folder
+    cover_image_path = os.path.join(
+        output_dir, f"{puzzle_name}_cover.png"
+    )
+
+    cover_image.render_wordsearch_cover(
+        output_path=cover_image_path,
+        grid=puzzles[0][1],
+        highlights=solutions[0][2],
+    )
+    print(f"Cover image generated: {cover_image_path}")
 
     # Use a temp directory for intermediate PDFs
     with tempfile.TemporaryDirectory() as tmpdir:
@@ -144,7 +173,7 @@ if __name__ == "__main__":
 
         # --- Create intro pages ---
         create_intro_pages(merger, tmpdir, puzzle_name, len(puzzles))
-        
+
         # Track current page number (intro has 4 pages)
         current_page = 5
 
@@ -164,7 +193,9 @@ if __name__ == "__main__":
             current_page += 1
 
         # --- Solutions title page ---
-        solutions_title_pdf = os.path.join(tmpdir, "solutions_title.pdf")
+        solutions_title_pdf = os.path.join(
+            tmpdir, "solutions_title.pdf"
+        )
         create_solution_intro_pages(solutions_title_pdf, "Solutions")
         merger.append(solutions_title_pdf)
         current_page += 1  # Solutions title page
@@ -180,6 +211,6 @@ if __name__ == "__main__":
             current_page += 1
 
         # Write the merged PDF
-        merger.write(args.output)
+        merger.write(pdf_output_path)
         merger.close()
-        print(f"Book PDF generated: {args.output}")
+        print(f"Book PDF generated: {pdf_output_path}")
