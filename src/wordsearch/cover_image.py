@@ -5,17 +5,9 @@ with the first 3 words highlighted as PNG images suitable for book covers.
 
 import os
 import math
-from enum import Enum
 from PIL import Image, ImageDraw, ImageFont
 
-from wordsearch import direction_to_delta
-
-
-class HighlightStyle(Enum):
-    """Enumeration for highlight styles in solution rendering."""
-
-    RECT = "rect"
-    FILL = "fill"
+from wordsearch import direction_to_delta, HighlightStyle
 
 
 # pylint: disable=too-many-arguments,too-many-locals,too-many-statements
@@ -27,8 +19,7 @@ def render_wordsearch_cover(
     image_size=(1200, 1200),
     background_color=(255, 255, 255),
     grid_color=(0, 0, 0),
-    # set the color to #E1AD01
-    highlight_color=(225, 173, 1),
+    highlight_color=(255, 0, 0),  # Red color for highlights
     max_highlights=4,
 ):
     """

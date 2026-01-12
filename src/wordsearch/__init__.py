@@ -1,5 +1,14 @@
 """Wordsearch package utilities."""
 
+from enum import Enum
+
+
+class HighlightStyle(Enum):
+    """Enumeration for highlight styles in solution rendering."""
+
+    RECT = "rect"
+    FILL = "fill"
+
 
 def direction_to_delta(direction):
     """
