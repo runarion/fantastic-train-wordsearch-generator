@@ -5,7 +5,6 @@ and their solutions to PDF format using the ReportLab library.
 
 import os
 import math
-from enum import Enum
 
 from reportlab.lib.pagesizes import letter
 from reportlab.platypus import (
@@ -17,14 +16,7 @@ from reportlab.platypus import (
     PageBreak,
 )
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from wordsearch import direction_to_delta
-
-
-class HighlightStyle(Enum):
-    """Enumeration for highlight styles in solution rendering."""
-
-    RECT = "rect"
-    FILL = "fill"
+from wordsearch import direction_to_delta, HighlightStyle
 
 
 # pylint: disable=too-many-arguments,too-many-locals,too-many-statements,too-many-positional-arguments

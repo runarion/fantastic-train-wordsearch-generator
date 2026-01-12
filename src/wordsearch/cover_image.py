@@ -5,17 +5,9 @@ with the first 3 words highlighted as PNG images suitable for book covers.
 
 import os
 import math
-from enum import Enum
 from PIL import Image, ImageDraw, ImageFont
 
-from wordsearch import direction_to_delta
-
-
-class HighlightStyle(Enum):
-    """Enumeration for highlight styles in solution rendering."""
-
-    RECT = "rect"
-    FILL = "fill"
+from wordsearch import direction_to_delta, HighlightStyle
 
 
 # pylint: disable=too-many-arguments,too-many-locals,too-many-statements
