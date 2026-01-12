@@ -164,6 +164,7 @@ if __name__ == "__main__":
         output_path=cover_image_path,
         grid=puzzles[0][1],
         highlights=solutions[0][2],
+        highlight_color=(225, 173, 1),  # set the color to #E1AD01
     )
     print(f"Cover image generated: {cover_image_path}")
 

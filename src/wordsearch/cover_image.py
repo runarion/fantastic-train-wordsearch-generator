@@ -19,8 +19,7 @@ def render_wordsearch_cover(
     image_size=(1200, 1200),
     background_color=(255, 255, 255),
     grid_color=(0, 0, 0),
-    # set the color to #E1AD01
-    highlight_color=(225, 173, 1),
+    highlight_color=(255, 0, 0),  # Red color for highlights
     max_highlights=4,
 ):
     """

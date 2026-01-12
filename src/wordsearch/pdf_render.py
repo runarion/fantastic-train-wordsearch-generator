@@ -29,6 +29,7 @@ def render_wordsearch_pdf(
     solution_output=None,
     highlight_style=HighlightStyle.RECT,
     page_num=None,
+    grey_highlights=False,
 ):
     """
     Render a wordsearch puzzle and its solution to a PDF file.
@@ -45,6 +46,8 @@ def render_wordsearch_pdf(
         highlight_style (HighlightStyle): Style for highlighting solution words.
             HighlightStyle.RECT for rectangle outline, HighlightStyle.FILL for filled background.
         page_num (int): Optional. Page number to display at the bottom of the page.
+        grey_highlights (bool): If True, use grey color for highlights instead of orange.
+            Default is False (orange).
     """
     # Ensure the output directory exists
     output_dir = os.path.dirname(puzzle_output)
@@ -227,7 +230,10 @@ def render_wordsearch_pdf(
                         canvas.rotate(
                             -angle
                         )  # Negative because PDF y-axis is inverted (0 at top)
-                        canvas.setStrokeColorRGB(1, 0.6, 0)
+                        if grey_highlights:
+                            canvas.setStrokeColorRGB(0.5, 0.5, 0.5)  # Grey
+                        else:
+                            canvas.setStrokeColorRGB(1, 0.6, 0)  # Orange
                         canvas.setLineWidth(1.5)
                         radius = cell_size * 0.35
                         canvas.roundRect(
@@ -457,6 +463,7 @@ if __name__ == "__main__":
         word_list=example_wordsearch_result["words"],
         highlights=example_highlights,
         solution_output=example_solution_output,  # Solution in different file
+        grey_highlights=True,
     )
 
     # Example 2: Combined puzzle and solution in one PDF
