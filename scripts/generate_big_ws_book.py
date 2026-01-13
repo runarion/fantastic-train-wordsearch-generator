@@ -45,15 +45,18 @@ def create_solution_page(solutions_chunk, output_pdf, page_num=None):
 
     page_width, page_height = letter
     margin = 36
-    # 2 columns
-    grid_area = (page_width - 2 * margin) / 2
+    # 2 columns, scaled down by 0.85 for more spacing
+    grid_area = ((page_width - 2 * margin) / 2) * 0.85
+    left_margin_offset = 30  # Additional left margin to center grids better
+    vertical_offset = 40  # Move all grids up for better vertical centering
     grid_positions = [
         # Top-left
-        (margin, page_height / 2 + margin / 2),
+        (margin + left_margin_offset, page_height / 2 + margin / 2 + vertical_offset),
         # Top-right
-        (page_width / 2 + margin / 2, page_height / 2 + margin / 2),
-        (margin, margin + 50),  # Bottom-left (moved up)
-        (page_width / 2 + margin / 2, margin + 50),  # Bottom-right (moved up)
+        (page_width / 2 + margin / 2, page_height / 2 + margin / 2 + vertical_offset),
+        # Bottom-left (moved up)
+        (margin + left_margin_offset, margin + 50 + vertical_offset),
+        (page_width / 2 + margin / 2, margin + 50 + vertical_offset),  # Bottom-right (moved up)
     ]
 
     c = canvas.Canvas(output_pdf, pagesize=letter)
@@ -157,7 +160,7 @@ if __name__ == "__main__":
     # only for the first puzzle generate the cover image in the
     # output folder
     cover_image_path = os.path.join(
-        output_dir, f"{puzzle_name}_cover.png"
+        output_dir, f"{puzzle_name}_cover_grid.png"
     )
 
     cover_image.render_wordsearch_cover(
