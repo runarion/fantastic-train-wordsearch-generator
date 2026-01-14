@@ -104,7 +104,7 @@ def render_wordsearch_pdf(
         TableStyle(
             [
                 ("ALIGN", (0, 0), (-1, -1), "CENTER"),  # Center text in each cell
-                ("FONTSIZE", (0, 0), (-1, -1), 14),
+                ("FONTSIZE", (0, 0), (-1, -1), 12),
                 ("LEFTPADDING", (0, 0), (-1, -1), 6),
                 ("RIGHTPADDING", (0, 0), (-1, -1), 6),
             ]
