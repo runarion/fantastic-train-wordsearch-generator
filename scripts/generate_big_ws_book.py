@@ -145,6 +145,14 @@ if __name__ == "__main__":
                 verbose=False,
             )
 
+            # print failed_words if any
+            if puzzle.failed_words:
+                print(
+                    f"Warning: Could not place the following words "
+                    f"in puzzle '{base_title} {variation}': "
+                    f"{puzzle.failed_words}"
+                )
+ 
             if puzzle is None:
                 continue
 
