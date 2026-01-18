@@ -11,7 +11,7 @@ import sys
 import json
 from pathlib import Path
 
-count_words = False  # Set to True to print the number of words in each puzzle
+show_info = True  # Set to True to print the number of words in each puzzle
 
 def find_json_files(root_dir):
     """Recursively find all .json files under root_dir."""
@@ -64,12 +64,19 @@ def validate_json_data(data, file_path):
                             if len(word) > puzzle['size']:
                                 errors.append(f"Word '{word}' in puzzle at index {i} exceeds puzzle size {puzzle['size']}.")
     
-    if count_words:
+    if show_info and not errors:
+        # print the file being processed
+        print(f"Info for {file_path}:")
+        #print number of puzzles
+        num_puzzles = len(data.get('puzzles', []))
+        print(f"Number of puzzles: {num_puzzles}")
         # print the size of words for each puzzle 
         for i, puzzle in enumerate(data.get('puzzles', [])):
             if 'words' in puzzle:
                 title = puzzle.get('title', f"Puzzle at index {i}")
                 print(f"{title} has {len(puzzle['words'])} words.")
+        # print a separator
+        print("-" * 40)
 
     return errors
 
