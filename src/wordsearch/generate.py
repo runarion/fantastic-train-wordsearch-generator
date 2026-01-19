@@ -99,12 +99,21 @@ class WordSearch:
 
         self.grid = self.create_grid()
 
-        # Sort words by length (longest first)
-        sorted_words = sorted(word_list, key=lambda w: -len(w.replace(" ", "")))
+        chars_to_removed = " -'"
 
-        # [TO-DO]: add a check for not alphebetical characters, e.g. "-" ...
+        # Sort words by length (longest first)
+        sorted_words = sorted(word_list, key=lambda w: -len(w.translate(str.maketrans('', '', chars_to_removed))))
+
+        # check for not alphabetical characters, which are not supported
         for word in sorted_words:
-            word_clean = word.upper().replace(" ", "")
+            if not word.translate(str.maketrans('', '', chars_to_removed)).isalpha():
+                logging.warning("Word '%s' contains unsupported characters and will be skipped.", word)
+                self.failed_words.append(word)
+                continue
+        
+        for word in sorted_words:
+            # Clean word by removing spaces, hyphens, and apostrophes 
+            word_clean = word.upper().translate(str.maketrans('', '', chars_to_removed))
             placed = False
             if use_basic:
                 placed = self.place_word_in_grid_basic(word_clean)
@@ -321,11 +330,13 @@ if __name__ == "__main__":
         "banana",
         "CHERRY",
         "strawberry",
-        "grape",
-        "yellow watermellon",
+        "grape*",  # bad char test
+        "yellow watermelon",
         "Jack Fruit",
+        "dragon's fruit",
+        "passion-fruit"
     ]
-    SIZE = 12
+    SIZE = 16
     BASIC = False
 
     generate_puzzle(TITLE, WORDS, SIZE, BASIC, verbose=True)

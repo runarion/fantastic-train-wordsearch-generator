@@ -68,7 +68,7 @@ def create_solution_page(solutions_chunk, output_pdf, page_num=None):
         pos_x, pos_y = grid_positions[position]
 
         pdf_render.draw_solution_grid_for_book(
-            c, pos_x, pos_y, sol_grid, sol_highlights, cell_size, sol_title
+            c, pos_x, pos_y, sol_grid, sol_highlights, cell_size, sol_title, grey_highlights=True
         )
 
     # Add page number if provided
@@ -125,12 +125,19 @@ if __name__ == "__main__":
         f"({base_puzzle_count} themes × {args.copies} variations)..."
     )
 
+    # Prepare about content descriptions for intro page
+    content_descriptions = []
+
     # Generate puzzles and solutions - create multiple variations for
     # each theme
     for item in data["puzzles"]:
         size = item.get("size", 15)
         count = item.get("count", 20)
         base_title = item["title"]
+
+        # Append the puzzle "title" to descriptions, only first 6 titles
+        if len(content_descriptions) < 6:
+            content_descriptions.append(base_title)
 
         # Generate multiple variations of each puzzle
         for variation in range(1, args.copies + 1):
@@ -171,11 +178,14 @@ if __name__ == "__main__":
         output_dir, f"{puzzle_name}_cover_grid.png"
     )
 
+    #get the cover color from the json, default to blue
+    cover_color = data.get("color", "#1E90FF")
+    
     cover_image.render_wordsearch_cover(
         output_path=cover_image_path,
         grid=puzzles[0][1],
         highlights=solutions[0][2],
-        highlight_color=(225, 173, 1),  # set the color to #E1AD01
+        highlight_color=tuple(int(cover_color.lstrip('#')[i:i+2], 16) for i in (0, 2, 4)),  # convert hex to RGB
     )
     print(f"Cover image generated: {cover_image_path}")
 
@@ -184,7 +194,7 @@ if __name__ == "__main__":
         merger = PdfMerger()
 
         # --- Create intro pages ---
-        create_intro_pages(merger, tmpdir, puzzle_name, len(puzzles))
+        create_intro_pages(merger, tmpdir, puzzle_name, len(puzzles), about_content=content_descriptions)
 
         # Track current page number (intro has 4 pages)
         current_page = 5
@@ -200,6 +210,7 @@ if __name__ == "__main__":
                 highlights=None,
                 solution_output=None,
                 page_num=current_page,
+                grey_highlights=True,
             )
             merger.append(puzzle_pdf)
             current_page += 1
