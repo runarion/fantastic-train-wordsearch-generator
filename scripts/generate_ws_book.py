@@ -120,7 +120,7 @@ if __name__ == "__main__":
         merger = PdfMerger()
 
         # --- Create intro pages ---
-        create_intro_pages(merger, tmpdir, puzzle_name, puzzle_count)
+        create_intro_pages(merger, tmpdir, puzzle_name, puzzle_count, about_content=data.get("description", None))
         
         # Track current page number (intro has 4 pages)
         current_page = 5

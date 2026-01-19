@@ -49,6 +49,7 @@ def render_wordsearch_pdf(
         grey_highlights (bool): If True, use grey color for highlights instead of orange.
             Default is False (orange).
     """
+
     # Ensure the output directory exists
     output_dir = os.path.dirname(puzzle_output)
     if output_dir:
@@ -289,7 +290,7 @@ def render_wordsearch_pdf(
 
 
 def draw_solution_grid_for_book(
-    canvas, pos_x, pos_y, grid, highlights, cell_size, title
+    canvas, pos_x, pos_y, grid, highlights, cell_size, title, grey_highlights=False
 ):
     """
     Draws a solution grid with highlights for inclusion in a PDF book.
@@ -301,6 +302,7 @@ def draw_solution_grid_for_book(
         highlights (list of dict): Each dict: {'word', 'start', 'direction', 'length'}.
         cell_size (float): Size of each cell in the grid.
         title (str): Title of the puzzle.
+        grey_highlights (bool): If True, use grey color for highlights instead of orange.
     """
     # Draw title
     canvas.setFont("Helvetica-Bold", 12)
@@ -356,7 +358,10 @@ def draw_solution_grid_for_book(
             canvas.saveState()
             canvas.translate(center_x, center_y)
             canvas.rotate(-angle)
-            canvas.setStrokeColorRGB(1, 0.6, 0)
+            if grey_highlights:
+                canvas.setStrokeColorRGB(0.5, 0.5, 0.5)  # Grey
+            else:
+                canvas.setStrokeColorRGB(1, 0.6, 0)  # Orange
             canvas.setLineWidth(1.5)
             radius = cell_size * 0.35
             canvas.roundRect(
@@ -463,7 +468,7 @@ if __name__ == "__main__":
         word_list=example_wordsearch_result["words"],
         highlights=example_highlights,
         solution_output=example_solution_output,  # Solution in different file
-        grey_highlights=True,
+        grey_highlights=False,
     )
 
     # Example 2: Combined puzzle and solution in one PDF
@@ -474,4 +479,5 @@ if __name__ == "__main__":
         word_list=example_wordsearch_result["words"],
         highlights=example_highlights,
         solution_output=None,  # Solution in same file
+        grey_highlights=True,
     )
