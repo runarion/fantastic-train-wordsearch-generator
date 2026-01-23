@@ -1,0 +1,294 @@
+{
+  "title": "Travel & Cities",
+  "color": "#E76F51",
+  "puzzles": [
+    {
+      "title": "Cities",
+      "words": [
+        "SKYSCRAPER" , "BOULEVARD"  , "PLAZA"      , "NEIGHBORHOOD" , "DOWNTOWN"     ,
+        "LANDMARK"   , "AVENUE"     , "DISTRICT"   , "METRO"        , "SPRAWL"       ,
+        "SUBURB"     , "PARKINGLOT" , "CROSSWALK"  , "SIDEWALK"     , "TRAFFICLIGHT" , 
+        "HIGHWAY"    , "BRIDGE"     , "TUNNEL"     , "FERRY"        , "PARK"         ,
+        "SQUARE"     , "MUSEUM"     , "GALLERY"    , "THEATER"      , "RESTAURANT"   ,
+        "MARKET"     , "STADIUM"    , "ZOO"        , "GARDEN"       , "FOUNTAIN"     , 
+        "MONUMENT"   , "CAFE"       , "LIBRARY"    , "CITYHALL"   
+      ],
+      "size":16,
+      "count":24
+    },
+    {
+      "title": "Airports",
+      "words": [
+        "AIRPORT"   , "GATE"      , "RUNWAY"          , "TARMAC"       , "HANGAR"   ,
+        "JETBRIDGE" , "BAGGAGE"   , "CLAIM"           , "DEPARTURE"    , "ARRIVAL"  ,
+        "CHECKIN"   , "SECURITY"  , "CUSTOMS"         , "TERMINAL"     , "LOUNGE"   ,
+        "CARRIAGE"  , "CATERING"  , "FUELING"         , "MAINTENANCE"  , "PILOT"    ,
+        "COCKPIT"   , "CABINCREW" , "FLIGHTATTENDANT" , "TICKET"       , "BOARDING" ,
+        "LAYOVER"   , "CONNECTION", "DELAY"           , "CANCELLATION" , "OVERSOLD"
+      ],
+      "size": 16,
+      "count": 24
+    },
+    {
+      "title": "Food Travel",
+      "words": [
+        "SUSHI"     , "PAELLA"     , "PIZZA"       , "TAPAS"       , "CURRY"     ,
+        "RAMEN"     , "TACOS"      , "FALAFEL"     , "PADTHAI"     , "MOUSSAKA"  ,
+        "DUMPLINGS" , "CROISSANT"  , "GELATO"      , "CHURROS"     , "BRATWURST" ,
+        "GULASCH"   , "PIEROGI"    , "BAGUETTE"    , "KIMCHI"      , "SAUSAGE"   ,
+        "WINE"      , "BEER"       , "COFFEE"      , "TEA"         , "CHOCOLATE" ,
+        "PASTRY"    , "BREAD"      , "SALAD"       , "SOUP"        , "STEAK"     , 
+        "SEAFOOD"   , "VEGETARIAN" , "VEGAN"       , "DESSERT"     , "APPETIZER" ,
+        "ENTREE"    , "BUFFET"     , "CHEESE"      , "STREET FOOD" , "FOOD TRUCK"
+      ],
+      "size":16,
+      "count":24
+    },
+    {
+      "title": "Transport",
+      "words": [
+        "SUBWAY"     , "TRAM"     , "FERRY"      , "TUKTUK"       , "CABLECAR"  , 
+        "MONORAIL"   , "RICKSHAW" , "GONDOLA"    , "TRAIN"        , "BUS"       ,
+        "TAXI"       , "UBER"     , "LIMOUSINE"  , "MOTORBIKE"    , "SCOOTER"   ,
+        "BICYCLE"    , "SEGWAY"   , "SKATEBOARD" , "ROLLERBLADES" , "CAR"       ,
+        "TRUCK"      , "SHIP"     , "BOAT"       , "YACHT"        , "CRUISE"    ,
+        "HELICOPTER" , "AIRPLANE" , "HOTELLOON"  , "PARAGLIDER"   , "KAYAK"     ,
+        "JETSKI"     , "RAFT"     , "CANOA"      , "SUBMARINE"    , "FIRETRUCK"
+      ],
+      "size":16,
+      "count":24
+    },
+    {
+      "title": "Hotels",
+      "words": [
+        "LOBBY"           , "CONCIERGE"     , "SUITE"        , "BELLHOP"      , "VALET"        ,
+        "CHECKIN"         , "ROOMKEY"       , "MINIBAR"      , "HOUSEKEEPING" , "RESERVATION"  ,
+        "FRONTDESK"       , "DOORMAN"       , "SWIMMINGPOOL" , "GYM"          , "SPA"          ,
+        "BREAKFAST"       , "BUFFET"        , "ROOMSERVICE"  , "TOWEL"        , "LINEN"        ,
+        "CLEANING"        , "ELEVATOR"      , "BALCONY"      , "VIEW"         , "SUITCASE"     ,
+        "DND SIGN"        , "WAKEUPSERVICE" , "HOTELSAFE"    , "TELEPHONE"    , "TELEVISION"   ,
+        "AIRCONDITIONING" , "HEATING"       , "HAIRDRYER"    , "IRONINGBOARD" , "TRAVELPILLOW"
+      ],
+      "size":16,
+      "count":24
+    },
+    {
+      "title": "Beaches",
+      "words": [
+        "MALDIVES"       , "BALI"       , "HAWAII"      , "IBIZA"         , "MYKONOS"       ,
+        "BORACAY"        , "MAUI"       , "GOA"         , "PHUKET"        , "CANCUN"        ,
+        "TULUM"          , "SEYCHELLES" , "FIJI"        , "BARBADOS"      , "BAHAMAS"       ,
+        "MAURITIUS"      , "ZANZIBAR"   , "SARDINIA"    , "CORSICA"       , "AMALFI COAST"  ,
+        "MEDITERRANEAN"  , "CURACAO"    , "ST LUCIA"    , "ANTIGUA"       , "GRENADA"       ,
+        "CAYMAN ISLANDS" , "JAMAICA"    , "PUERTO RICO" , "GREEK ISLANDS" , "ARUBA"
+      ],
+      "size":16,
+      "count":24
+    },
+    {
+      "title": "Sightseeing",
+      "words": [
+        "ITINERARY" , "DAYTRIP"   , "WALKINGTOUR" , "BUS TOUR"   , "HOPON"      ,
+        "HOPOFF"    , "GUIDEBOOK" , "SELFIESTICK" , "MONUMENT"   , "PANORAMA"   ,
+        "VIEWPOINT" , "PHOTOOP"   , "LANDMARK"    , "ATTRACTION" , "MUSTSEE"    ,
+        "CULTURE"   , "HISTORY"   , "ARCHAEOLOGY" , "MUSEUM"     , "GALLERY"    ,
+        "EXHIBIT"   , "TOURGUIDE" , "GROUPTOUR"   , "AUDIOGUIDE" , "MAP"        ,
+        "SOUVENIR"  , "POSTCARD"  , "TRAVELDIARY" , "JOURNAL"    , "SKETCHBOOK" ,
+        "BROCHURE"  , "FLYER"     , "LEAFLET"     , "TRAVELBLOG" , "VLOG" 
+      ],
+      "size":16,
+      "count":24
+    },
+    {
+      "title": "Europe",
+      "words": [
+        "PARIS"    , "ROME"       , "LONDON"    , "BERLIN"    , "MADRID"    ,
+        "VIENNA"   , "PRAGUE"     , "BUDAPEST"  , "LISBON"    , "AMSTERDAM" ,
+        "DUBLIN"   , "COPENHAGEN" , "STOCKHOLM" , "OSLO"      , "HELSINKI"  ,
+        "BRUSSELS" , "ZURICH"     , "MUNICH"    , "MILAN"     , "VENICE"    ,
+        "ATHENS"   , "WARSAW"     , "KRAKOW"    , "EDINBURGH" , "GLASGOW"   ,
+        "BELGRADE" , "ZAGREB"     , "SARAJEVO"  , "LJUBLJANA" , "SKOPJE"    ,
+        "TIRANA"   , "SOFIA"      , "BUCHAREST" , "VILNIUS"   , "RIGA"      ,
+        "TALLINN"  , "BRATISLAVA" , "COIMBRA"   , "PORTO"     , "FLORENCE"
+      ],
+      "size":16,
+      "count":24
+    },
+    {
+      "title": "Asia",
+      "words": [
+        "TOKYO"     , "BANGKOK"   , "SINGAPORE" , "SEOUL"    , "DUBAI"       ,
+        "DELHI"     , "BEIJING"   , "SHANGHAI"  , "HONGKONG" , "KUALALUMPUR" ,
+        "JAKARTA"   , "MANILA"    , "HANOI"     , "BALI"     , "TAIPEI"      ,
+        "KATHMANDU" , "MUMBAI"    , "CHENNAI"   , "COLOMBO"  , "THIMPHU"     ,
+        "KARACHI"   , "LUCKNOW"   , "AHMEDABAD" , "SURAT"    , "PUNE"        ,
+        "HYDERABAD" , "CHONGQING" , "GUANGZHOU" , "SHENZHEN" , "CHENGDU"     ,
+        "NANJING"   , "WUHAN"     , "XIAMEN"    , "QINGDAO"  , "DALI"        ,
+        "OSAKA"     , "KYOTO"     , "NAGOYA"    , "FUKUOKA"  , "HIROSHIMA"   ,
+        "JAIPUR"    , "ULANBATOR" , "LUOYANG"   , "SAPPORO"  , "PHNOM PENH"
+      ],
+      "size":16,
+      "count":24
+    },
+    {
+      "title": "America",
+      "words": [
+        "NEWYORK"      , "MIAMI"          , "LASVEGAS"    , "CHICAGO"    , "BOSTON"     ,
+        "SEATTLE"      , "ORLANDO"        , "DENVER"      , "PHOENIX"    , "ATLANTA"    ,
+        "TORONTO"      , "VANCOUVER"      , "MONTREAL"    , "CALGARY"    , "OTTAWA"     ,
+        "MEXICOCITY"   , "GUADALAJARA"    , "MONTERREY"   , "CANCUN"     , "TULUM"      ,
+        "RIODEJANEIRO" , "SAOPAULO"       , "BUENOSAIRES" , "LIMAPERU"   , "SANTIAGO"   ,
+        "BOGOTA"       , "CARACAS"        , "LIMACOSTA"   , "QUITO"      , "LA PAZ"     ,
+        "HAVANA"       , "SANJUAN"        , "KINGSTON"    , "BRIDGETOWN" , "NASSAU"     ,
+        "PORTOFSPAIN"  , "PUERTOVALLARTA" , "CARTAGENA"   , "ASUNCION"   , "MONTEVIDEO"
+      ],
+      "size":16,
+      "count":24
+    },
+    {
+      "title": "Africa",
+      "words": [
+        "CAIRO"      , "LAGOS"      , "NAIROBI"    , "JOHANNESBURG"  , "DURBAN"       ,
+        "KAMPALA"    , "ACCRA"      , "ABUJA"      , "KHARTOUM"      , "DOUALA"       ,
+        "ABIDJAN"    , "TUNIS"      , "ALGIERS"    , "TRIPOLI"       , "MARRAKECH"    ,
+        "CASABLANCA" , "DAKAR"      , "BAMAKO"     , "OUAGADOUGOU"   , "FREETOWN"     ,
+        "MONROVIA"   , "KIGALI"     , "BUJUMBURA"  , "DAR ES SALAAM" , "ZANZIBAR"     ,
+        "LUSAKA"     , "HARARE"     , "GABORONE"   , "WINDHOEK"      , "MAPUTO"       ,
+        "MAURITIUS"  , "SEYCHELLES" , "COMOROS"    , "MALAWI"        , "SIERRA LEONE" ,
+        "LOME"       , "COTONOU"    , "PORTO-NOVO" , "BISSAU"        , "ANTANANARIVO"
+      ],
+      "size":16,
+      "count":24
+    },
+    {
+      "title": "Oceania",
+      "words": [
+        "SYDNEY"       , "MELBOURNE"      , "BRISBANE"        , "PERTH"       , "ADELAIDE"       ,
+        "AUCKLAND"     , "WELLINGTON"     , "CHRISTCHURCH"    , "HOBART"      , "DARWIN"         ,
+        "FIJI"         , "SAMOA"          , "TONGA"           , "VANUATU"     , "PAPUANEWGUINEA" ,
+        "NEWCALEDONIA" , "SOLOMONISLANDS" , "COOKISLANDS"     , "NIUE"        , "TUVALU"         ,
+        "KIRIBATI"     , "NAURU"          , "MARSHALLISLANDS" , "PALAU"       , "MICRONESIA"     ,
+        "GUAM"         , "WAKEISLAND"     , "JOHNSTONATOLL"   , "BAKERISLAND" , "HOWLANDISLAND"  ,
+        "MIDWAYATOLL"  , "NORFOLKISLAND"  , "CHATHAMISLANDS"  , "HEARDISLAND" , "ANTARCTICA"
+      ],
+      "size":16,
+      "count":24
+    },
+    {
+      "title": "Travel Essentials",
+      "words": [
+        "PASSPORT"      , "VISA"            , "TICKET"      , "ITINERARY"    , "LUGGAGE"      ,
+        "BACKPACK"      , "SUITCASE"        , "CARRYON"     , "ELECTRONICS"  , "CHARGER"      ,     
+        "CREDITCARD"    , "TRAVELINSURANCE" , "FIRSTAIDKIT" , "WATER BOTTLE" , "CAMERA"       ,
+        "JOURNAL"       , "PEN"             , "BOOK"        , "PILLOW"       , "TAG"          ,
+        "ENTERTAINMENT" , "DOWNLOADS"       , "OFFLINEMAPS" , "WEATHERAPP"   , "TORCHLIGHT"   ,
+        "WALLET"        , "MONEYBELT"       , "LOCK"        , "TOILETRY BAG" , "WEATHER APP"  ,
+        "FIRSTAID KIT"  , "MEDICATION"      , "SNACKS"      , "ADAPTER"      , "HEADPHONES"   ,
+        "SUNGLASSES"    , "HAT"             , "SUNSCREEN"   , "MAP"          , "GUIDEBOOK"    ,
+        "OFFLINE MAPS"  , "MULTITOOL"     , "TOWEL"        , "RAIN JACKET"  , "COMFORTABLE"
+      ],
+      "size":16,
+      "count":24
+    },
+    {
+      "title": "Urban Exploration",
+      "words": [
+        "SKYSCRAPER" , "BOULEVARD"  , "PLAZA"     , "NEIGHBORHOOD" , "DOWNTOWN"     ,
+        "LANDMARK"   , "AVENUE"     , "DISTRICT"  , "METRO"        , "SPRAWL"       ,
+        "SUBURB"     , "PARKINGLOT" , "CROSSWALK" , "SIDEWALK"     , "TRAFFICLIGHT" ,
+        "HIGHWAY"    , "BRIDGE"     , "TUNNEL"    , "FERRY"        , "PARK"         ,
+        "SQUARE"     , "MUSEUM"     , "GALLERY"   , "THEATER"      , "RESTAURANT"   ,
+        "MARKET"     , "STADIUM"    , "ZOO"       , "GARDEN"       , "FOUNTAIN"     ,
+        "MONUMENT"   , "CAFÉ"       , "LIBRARY"   , "CITYHALL"     , "SKATEPARK" 
+      ],
+      "size":16,
+      "count":24
+    },
+    {
+      "title": "Adventure",
+      "words" : [
+        "SAFARI"         , "SKYDIVE"    , "BUNGEE"     , "PARAGLIDE"     , "SNORKEL"      ,
+        "SURFING"        , "HIKING"     , "CANYONING"  , "ZIPLINE"       , "RAFTING"      ,
+        "MOUNTAINEERING" , "CLIMBING"   , "TREKKING"   , "KAYAKING"      , "DIVING"       ,
+        "SNOWBOARDING"   , "SKIING"     , "WILDERNESS" , "EXPEDITION"    , "CAMPING"      ,
+        "ORIENTEERING"   , "GEOCACHING" , "FISHING"    , "HUNTING"       , "BIRDWATCHING" ,
+        "PHOTOGRAPHY"    , "SURVIVAL"   , "ADVENTURER" , "EXPLORER"      , "TRAILBLAZER"  ,
+        "NAVIGATOR"      , "PATHFINDER" , "DISCOVERER" , "PIONEER"       , "WAYFARER"     ,
+        "WANDERER"       , "TRAVELER"   , "JOURNEYMAN" , "GLOBE-TROTTER" , "JET-SETTER"   ,
+        "ROAMER"         , "VOYAGER"    , "BACKPACKING"
+      ],
+      "size":16,
+      "count":24
+    },
+    {
+      "title": "Cultural Sites",
+      "words": [
+        "MUSEUM"           , "GALLERY"         , "THEATER"      , "OPERA"          , "CONCERTHALL"  ,
+        "CATHEDRAL"        , "CHURCH"          , "MOSQUE"       , "SYNAGOGUE"      , "TEMPLE"       ,
+        "MONASTERY"        , "PAGODA"          , "CASTLE"       , "FORTRESS"       , "PALACE"       ,
+        "PUBLICART"        , "STREETART"       , "MURAL"        , "SCULPTURE"      , "FRESCO"       , 
+        "TRADITIONALDANCE" , "FOLKLORE"        , "CULTURALTOUR" , "GUIDEDVISIT"    , "HERITAGESITE" ,
+        "HISTORICSITE"     , "ARTINSTALLATION" , "EXHIBITION"   , "PERFORMANCEART" , "ARTSYMBOL"    ,
+        "EXCHANGE"         , "ETHNICVILLAGE"   
+      ],
+      "size":16,
+      "count":24
+    },
+    {
+      "title": "Travel Activities",
+      "words": [
+        "SIGHTSEEING"   , "HIKING"       , "CYCLING"   , "PHOTOGRAPHY"  , "SHOPPING"      ,
+        "DINING"        , "RELAXING"     , "SWIMMING"  , "SUNBATHING"   , "EXPLORING"     ,
+        "CULTURE"       , "HISTORY"      , "ADVENTURE" , "NATUREWALK"   , "WILDLIFE"      ,
+        "MOUNTAINEERING", "CAMPING"      , "FISHING"   , "BOATING"      , "DIVING"        ,
+        "SNORKELING"    , "SURFING"      , "SKIING"    , "SNOWBOARDING" , "PARAGLIDING"   ,
+        "RAFTING"       , "KAYAKING"     , "CLIMBING"  , "TREKKING"     , "BIRDWATCHING"  ,
+        "GOLFING"       , "HORSE RIDING" , "YOGA"      , "MEDITATION"   , "SPA TREATMENT"
+      ],
+      "size":16,
+      "count":24
+    },
+    {
+      "title": "Historic Cities",
+      "words": [
+        "ROME"       , "ATHENS"      , "ISTANBUL"   , "JERUSALEM"   , "KYOTO"      ,
+        "CAIRO"      , "MEXICOCITY"  , "BEIJING"    , "LONDON"      , "PARIS"      ,
+        "PRAGUE"     , "VIENNA"      , "BUDAPEST"   , "DUBLIN"      , "SEVILLE"    ,
+        "FLORENCE"   , "VENICE"      , "AMSTERDAM"  , "BRUGES"      , "SALZBURG"   ,
+        "LISBON"     , "COPENHAGEN"  , "STOCKHOLM"  , "OSLO"        , "HELSINKI"   ,
+        "ZURICH"     , "MUNICH"      , "MILAN"      , "WARSAW"      , "KRAKOW"     ,
+        "EDINBURGH"  , "GLASGOW"     , "BELGRADE"   , "ZAGREB"      , "SARAJEVO"   ,
+        "LJUBLJANA"  , "SKOPJE"      , "TIRANA"     , "SOFIA"       , "BUCHAREST"
+      ],
+      "size":16,
+      "count":24
+    },
+    {
+      "title": "Island Destinations",
+      "words": [
+        "MALDIVES"       , "BALI"       , "HAWAII"      , "IBIZA"         , "MYKONOS"       ,
+        "BORACAY"        , "MAUI"       , "GOA"         , "PHUKET"        , "CANCUN"        ,
+        "TULUM"          , "SEYCHELLES" , "FIJI"        , "BARBADOS"      , "BAHAMAS"       ,
+        "MAURITIUS"      , "ZANZIBAR"   , "SARDINIA"    , "CORSICA"       , "AMALFI COAST"  ,
+        "MEDITERRANEAN"  , "CURACAO"    , "ST LUCIA"    , "ANTIGUA"       , "GRENADA"       ,
+        "CAYMAN ISLANDS" , "JAMAICA"    , "PUERTO RICO" , "GREEK ISLANDS" , "ARUBA"
+      ],
+      "size":16,
+      "count":24
+    },
+    {
+      "title": "Road Trips",
+      "words": [
+        "HIGHWAY"     , "SCENIC ROUTE" , "MOTORWAY"    , "BYWAY"        , "EXPRESSWAY"    ,
+        "FREEWAY"     , "INTERSTATE"   , "ROADSIDE"    , "VIEWPOINT"    , "PITSTOP"       ,
+        "GAS STATION" , "DINER"        , "MOTEL"       , "CAMPGROUND"   , "NATIONAL PARK" ,
+        "LANDMARK"    , "ATTRACTION"   , "TRAILHEAD"   , "PICNICA"      , "HIKING"        ,
+        "CAMPFIRE"    , "STARGAZING"   , "WILDLIFE"    , "PHOTOGRAPHY"  , "ADVENTURE"     ,
+        "EXPLORATION" , "NAVIGATION"   , "MAP READING" , "GPS"          , "ROADMAP"       ,
+        "JOURNAL"     , "SNACKS"       , "PLAYLIST"    , "COMPANIONS"   , "MEMORIES"
+      ],
+      "size":16,
+      "count":24
+    }
+  ]
+}
