@@ -27,12 +27,31 @@ def validate_json_data(data, file_path):
     if not isinstance(data, dict):
         errors.append("Root element is not a JSON object.")
     else:
+        # get the version number if present, otherwise assume version 0.0
+        version = data.get('version', 0.0)
+        if not isinstance(version, (int, float)):
+            errors.append("'version' is not a number.")
         if 'title' not in data:
             errors.append("Missing 'title' key.")
         if 'puzzles' not in data:
             errors.append("Missing 'puzzles' key.")
     # Add more rules here as needed
     
+        if version >= 1.0:
+            # check if color is a valid hex color code
+            if 'color' in data:
+                color = data['color']
+                if not isinstance(color, str) or not color.startswith('#') or len(color) not in [4, 7]:
+                    errors.append("'color' is not a valid hex color code.")
+                else:
+                    hex_digits = color[1:]
+                    if len(hex_digits) == 3:
+                        hex_digits = ''.join([c*2 for c in hex_digits])
+                    if not all(c in '0123456789abcdefABCDEF' for c in hex_digits):
+                        errors.append("'color' contains invalid hex digits.")
+            else:
+                errors.append("Missing 'color' key for version >= 1.0.")
+
         # For each puzzle in 'puzzles', check required fields
         if 'puzzles' in data:
             if not isinstance(data['puzzles'], list):
@@ -61,6 +80,8 @@ def validate_json_data(data, file_path):
                     # check that all words fit in the puzzle size
                     if 'words' in puzzle and 'size' in puzzle:
                         for word in puzzle['words']:
+                            # do not count white space-only characters
+                            word = word.replace(" ", "")
                             if len(word) > puzzle['size']:
                                 errors.append(f"Word '{word}' in puzzle at index {i} exceeds puzzle size {puzzle['size']}.")
     
@@ -106,6 +127,7 @@ def main(books_dir=None):
             all_ok = False
         else:
             print(f"[OK]   {file_path}")
+            print()
     if all_ok:
         print("\nAll files passed validation.")
         sys.exit(0)
