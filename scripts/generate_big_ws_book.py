@@ -79,6 +79,64 @@ def create_solution_page(solutions_chunk, output_pdf, page_num=None):
     c.save()
 
 
+def save_puzzle_data_to_json(puzzles, solutions, output_path, puzzle_name, cover_color):
+    """
+    Saves the generated puzzles and solutions to a JSON file with metadata.
+    """
+    puzzle_data = {
+        "metadata": {
+            "title": puzzle_name,
+            "color": cover_color
+        },
+        "puzzles": [],
+        "solutions": []
+    }
+
+    for title, grid, words in puzzles:
+        puzzle_data["puzzles"].append({
+            "title": title,
+            "grid": grid,
+            "words": words
+        })
+
+    for title, grid, highlights in solutions:
+        puzzle_data["solutions"].append({
+            "title": title,
+            "grid": grid,
+            "highlights": highlights
+        })
+
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(puzzle_data, f, indent=4)
+
+
+def load_puzzle_data_from_json(input_path):
+    """
+    Loads previously generated puzzles and solutions from a JSON file.
+    Returns: (puzzles, solutions, puzzle_name, cover_color)
+    """
+    with open(input_path, "r", encoding="utf-8") as f:
+        puzzle_data = json.load(f)
+
+    # Extract metadata
+    metadata = puzzle_data.get("metadata", {})
+    puzzle_name = metadata.get("title", "wordsearch_book")
+    cover_color = metadata.get("color", "#1E90FF")
+
+    # Reconstruct puzzles list
+    puzzles = []
+    for p in puzzle_data["puzzles"]:
+        puzzles.append((p["title"], p["grid"], p["words"]))
+
+    # Reconstruct solutions list
+    solutions = []
+    for s in puzzle_data["solutions"]:
+        solutions.append((s["title"], s["grid"], s["highlights"]))
+
+    return puzzles, solutions, puzzle_name, cover_color
+
+
 if __name__ == "__main__":
 
     # parse arguments
@@ -98,88 +156,138 @@ if __name__ == "__main__":
         help="number of copies per puzzle (default: 4)",
         default=4,
     )
+    parser.add_argument(
+        "-t",
+        "--input-type",
+        choices=["wordlist", "puzzles"],
+        default="wordlist",
+        help="type of input file: 'wordlist' for puzzle definitions (generates new puzzles), 'puzzles' for previously generated puzzle data (reuses puzzles)",
+    )
 
     args = parser.parse_args()
 
-    # Read input data
-    with open(args.input, "r", encoding="utf-8") as f:
-        data = json.load(f)
-
-    puzzle_name = (
-        data.get("title", os.path.splitext(os.path.basename(args.input))[0])
-        .replace(" ", "_")
-        .lower()
-    )
-    if args.name:
-        puzzle_name = args.name
-
     output_dir = args.output
-    pdf_output_path = os.path.join(output_dir, f"{puzzle_name}_book.pdf")
-
     puzzles = []
     solutions = []
-    base_puzzle_count = len(data["puzzles"])
-    total_puzzle_count = base_puzzle_count * args.copies
-    print(
-        f"Generating book with {total_puzzle_count} puzzles "
-        f"({base_puzzle_count} themes × {args.copies} variations)..."
-    )
-
-    # Prepare about content descriptions for intro page
+    cover_color = "#1E90FF"  # default blue
     content_descriptions = []
 
-    # Generate puzzles and solutions - create multiple variations for
-    # each theme
-    for item in data["puzzles"]:
-        size = item.get("size", 15)
-        count = item.get("count", 20)
-        base_title = item["title"]
+    if args.input_type == "puzzles":
+        # Load previously generated puzzle data
+        print(f"Loading puzzle data from {args.input}...")
+        puzzles, solutions, puzzle_name, cover_color = load_puzzle_data_from_json(args.input)
+        
+        # Override puzzle name if specified
+        if args.name:
+            puzzle_name = args.name
+        
+        # Extract content descriptions from first 6 puzzle titles
+        for title, _, _ in puzzles[:6]:
+            # Remove variation numbers (e.g., "Animals 1" -> "Animals")
+            base_title = title.rsplit(' ', 1)[0] if title[-1].isdigit() and ' ' in title else title
+            if base_title not in content_descriptions:
+                content_descriptions.append(base_title)
+        
+        print(f"Loaded {len(puzzles)} puzzles from data file")
+    
+    else:
+        # Generate new puzzles from word lists (original behavior)
+        with open(args.input, "r", encoding="utf-8") as f:
+            data = json.load(f)
 
-        # Append the puzzle "title" to descriptions, only first 6 titles
-        if len(content_descriptions) < 6:
-            content_descriptions.append(base_title)
+        puzzle_name = (
+            data.get("title", os.path.splitext(os.path.basename(args.input))[0])
+            .replace(" ", "_")
+            .lower()
+        )
+        if args.name:
+            puzzle_name = args.name
 
-        # Generate multiple variations of each puzzle
-        for variation in range(1, args.copies + 1):
-            # pick different random list of count words from
-            # item["words"]
-            selected_words = random.sample(item["words"], count)
-            puzzle = generate.generate_puzzle(
-                base_title,
-                selected_words,
-                grid_size=size,
-                use_basic=False,
-                verbose=False,
-            )
+        base_puzzle_count = len(data["puzzles"])
+        total_puzzle_count = base_puzzle_count * args.copies
+        print(
+            f"Generating book with {total_puzzle_count} puzzles "
+            f"({base_puzzle_count} themes × {args.copies} variations)..."
+        )
 
-            # print failed_words if any
-            if puzzle.failed_words:
-                print(
-                    f"Warning: Could not place the following words "
-                    f"in puzzle '{base_title} {variation}': "
-                    f"{puzzle.failed_words}"
+        # Get cover color from the json, default to blue
+        cover_color = data.get("color", "#1E90FF")
+
+        # Generate puzzles and solutions - create multiple variations for
+        # each theme
+        for item in data["puzzles"]:
+            size = item.get("size", 15)
+            count = item.get("count", 20)
+            base_title = item["title"]
+
+            # Append the puzzle "title" to descriptions, only first 6 titles
+            if len(content_descriptions) < 6:
+                content_descriptions.append(base_title)
+
+            # Generate multiple variations of each puzzle
+            for variation in range(1, args.copies + 1):
+                # pick different random list of count words from
+                # item["words"]
+
+            # if there are not enough words, just take all of them
+                if len(item["words"]) <= count:
+                    selected_words = item["words"]
+                else:
+                    selected_words = random.sample(item["words"], count)
+
+                # if there are failed words, try to generate again 3 times
+                puzzle = None
+                for attempt in range(5):
+                    puzzle = generate.generate_puzzle(
+                        base_title,
+                        selected_words,
+                        grid_size=size,
+                        use_basic=False,
+                        verbose=False,
+                    )
+                    if not puzzle.failed_words:
+                        if attempt > 0:
+                            ordinal = {1: '1st', 2: '2nd', 3: '3rd', 4: '4th', 5: '5th'}[attempt + 1]
+                            print(
+                                f"Puzzle '{base_title} {variation}' generated at the {ordinal} attempt"
+                            )
+                        break  # success, exit retry loop
+
+                # print failed_words if any
+                if puzzle.failed_words:
+                    print(
+                        f"Warning: Could not place the following words "
+                        f"in puzzle '{base_title} {variation}': "
+                        f"{puzzle.failed_words}"
+                    )
+     
+                if puzzle is None:
+                    continue
+
+                # Add variation number to title
+                numbered_title = f"{base_title} {variation}"
+                puzzles.append((numbered_title, puzzle.grid, puzzle.words))
+                solutions.append(
+                    (numbered_title, puzzle.grid, puzzle.get_highlights())
                 )
- 
-            if puzzle is None:
-                continue
+       
+        print(f"Successfully generated {len(puzzles)} puzzles")
 
-            # Add variation number to title
-            numbered_title = f"{base_title} {variation}"
-            puzzles.append((numbered_title, puzzle.grid, puzzle.words))
-            solutions.append(
-                (numbered_title, puzzle.grid, puzzle.get_highlights())
-            )
+        # Save JSON with puzzles and solutions
+        save_puzzle_data_to_json(
+            puzzles, solutions, 
+            os.path.join(output_dir, f"{puzzle_name}_data.json"),
+            puzzle_name,
+            cover_color
+        )
+        print(f"JSON saved: {os.path.join(output_dir, f'{puzzle_name}_data.json')}")
 
-    print(f"Successfully generated {len(puzzles)} puzzles")
+    pdf_output_path = os.path.join(output_dir, f"{puzzle_name}_book.pdf")
 
-    # only for the first puzzle generate the cover image in the
-    # output folder
+    # generate the cover image in the output folder only for the first puzzle
     cover_image_path = os.path.join(
         output_dir, f"{puzzle_name}_cover_grid.png"
     )
-
-    #get the cover color from the json, default to blue
-    cover_color = data.get("color", "#1E90FF")
     
     cover_image.render_wordsearch_cover(
         output_path=cover_image_path,
