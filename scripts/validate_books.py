@@ -2,7 +2,11 @@
 """
 validate_books.py
 
-Script to validate all JSON files in the data/books directory and its subfolders.
+Script to validate JSON book files.
+Can validate either:
+- All JSON files in a directory (and its subfolders)
+- A single JSON file
+
 Validation rules can be added to the validate_json_data() function.
 """
 import argparse
@@ -102,14 +106,38 @@ def validate_json_data(data, file_path):
     return errors
 
 
-def main(books_dir=None):
-    """Main function to validate JSON files in the specified directory."""
-    if books_dir is None:
-        books_dir = Path(__file__).parent.parent / 'data' / 'books'
-    json_files = find_json_files(books_dir)
-    if not json_files:
-        print(f"No JSON files found in {books_dir}")
+def main(input_path=None):
+    """
+    Main function to validate JSON file(s).
+    
+    Args:
+        input_path: Can be either:
+                   - A directory path: validates all .json files in that directory and subdirectories
+                   - A file path: validates only that specific .json file
+                   - None: defaults to data/books directory
+    """
+    if input_path is None:
+        input_path = Path(__file__).parent.parent / 'data' / 'books'
+    
+    input_path = Path(input_path)
+    
+    # Determine if input is a file or directory
+    if input_path.is_file():
+        # Validate single file
+        if not input_path.suffix == '.json':
+            print(f"Error: {input_path} is not a JSON file.")
+            sys.exit(1)
+        json_files = [input_path]
+    elif input_path.is_dir():
+        # Validate all files in directory
+        json_files = find_json_files(input_path)
+        if not json_files:
+            print(f"No JSON files found in {input_path}")
+            sys.exit(1)
+    else:
+        print(f"Error: {input_path} does not exist.")
         sys.exit(1)
+    
     all_ok = True
     for file_path in json_files:
         try:
@@ -138,9 +166,14 @@ def main(books_dir=None):
 if __name__ == "__main__":
 
     # parse arguments
-    parser = argparse.ArgumentParser()
-    # pass input folder as argument
-    parser.add_argument("input_folder", help="input folder containing JSON files")
+    parser = argparse.ArgumentParser(
+        description="Validate JSON book files. Can validate a single file or all files in a directory."
+    )
+    # pass input path as argument (can be either a file or a folder)
+    parser.add_argument(
+        "input_path", 
+        help="Path to either a JSON file or a folder containing JSON files"
+    )
     args = parser.parse_args()
     
-    main(args.input_folder)
+    main(args.input_path)
