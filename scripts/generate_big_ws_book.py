@@ -79,7 +79,14 @@ def create_solution_page(solutions_chunk, output_pdf, page_num=None):
     c.save()
 
 
-def save_puzzle_data_to_json(puzzles, solutions, output_path, puzzle_name, cover_color):
+def save_puzzle_data_to_json(
+    puzzles,
+    solutions,
+    output_path,
+    puzzle_name,
+    cover_color,
+    content_descriptions=None
+    ):
     """
     Saves the generated puzzles and solutions to a JSON file with metadata.
     """
@@ -106,6 +113,9 @@ def save_puzzle_data_to_json(puzzles, solutions, output_path, puzzle_name, cover
             "highlights": highlights
         })
 
+    if content_descriptions:
+        puzzle_data["metadata"]["content_descriptions"] = content_descriptions
+        
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(puzzle_data, f, indent=4)
@@ -181,12 +191,11 @@ if __name__ == "__main__":
         if args.name:
             puzzle_name = args.name
         
-        # Extract content descriptions from first 6 puzzle titles
-        for title, _, _ in puzzles[:6]:
-            # Remove variation numbers (e.g., "Animals 1" -> "Animals")
-            base_title = title.rsplit(' ', 1)[0] if title[-1].isdigit() and ' ' in title else title
-            if base_title not in content_descriptions:
-                content_descriptions.append(base_title)
+        #get content descriptions from metadata if available
+        with open(args.input, "r", encoding="utf-8") as f:
+            puzzle_data = json.load(f)
+            metadata = puzzle_data.get("metadata", {})
+            content_descriptions = metadata.get("content_descriptions", [])
         
         print(f"Loaded {len(puzzles)} puzzles from data file")
     
@@ -278,7 +287,8 @@ if __name__ == "__main__":
             puzzles, solutions, 
             os.path.join(output_dir, f"{puzzle_name}_data.json"),
             puzzle_name,
-            cover_color
+            cover_color,
+            content_descriptions
         )
         print(f"JSON saved: {os.path.join(output_dir, f'{puzzle_name}_data.json')}")
 

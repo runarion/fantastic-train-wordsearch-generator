@@ -61,7 +61,7 @@ def create_title_page(output_pdf, puzzle_name, puzzle_num=80, about_content=None
     c.setFont("Helvetica", body_font_size)
     y_pos = page_height * 0.75
     instructions = [
-        "1. Read the themed word list on the right",
+        "1. Read the themed word list below the puzzle",
         "2. Find where each word fits in the grid", 
         "3. Write letters in the squares using pen or pencil",
         "4. Check solutions at the back if needed"
@@ -72,6 +72,7 @@ def create_title_page(output_pdf, puzzle_name, puzzle_num=80, about_content=None
         y_pos -= 0.4*inch
     
     # Large print note
+    y_pos -= 0.2*inch
     c.setFont("Helvetica-Bold", body_font_size)
     c.drawString(1.5*inch, y_pos, "Large print design for comfortable solving!")
     
@@ -107,15 +108,16 @@ def create_title_page(output_pdf, puzzle_name, puzzle_num=80, about_content=None
         y_pos -= 0.35*inch
     
     # Benefits
+    y_pos -= 0.2*inch
     c.setFont("Helvetica-Bold", body_font_size)
     c.drawString(1.5*inch, y_pos, "Perfect for:")
     y_pos -= 0.3*inch
     
     benefits = [
-        "✓ Brain training & relaxation",
-        "✓ Seniors & adults", 
-        "✓ Vocabulary building",
-        "✓ Travel, gifts, or personal enjoyment"
+        "• Brain training & relaxation",
+        "• Seniors & adults", 
+        "• Vocabulary building",
+        "• Travel, gifts, or personal enjoyment"
     ]
     
     c.setFont("Helvetica", body_font_size)

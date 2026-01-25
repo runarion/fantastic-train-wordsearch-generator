@@ -70,7 +70,7 @@ def render_wordsearch_pdf(
     elements = []
     # Title in uppercase and centered
     elements.append(Paragraph(title.upper(), styles["Title"]))
-    elements.append(Spacer(1, 48))  # Increased space after title
+    elements.append(Spacer(1, 60))  # Increased space after title
 
     # Calculate grid size for spacer
     page_width, page_height = letter
@@ -123,7 +123,7 @@ def render_wordsearch_pdf(
         cell_size = min(available_width, available_height) / grid_size
         grid_width = cell_size * grid_size
         grid_height = cell_size * grid_size
-        grid_gap_y = 84  # delta from the top of the page to the grid
+        grid_gap_y = 108  # delta from the top of the page to the grid
         start_x = (page_width - grid_width) / 2
         start_y = page_height - page_margin - grid_gap_y  # leave space for title
 
@@ -163,7 +163,7 @@ def render_wordsearch_pdf(
             grid_width = cell_size * grid_size
             grid_height = cell_size * grid_size
 
-            grid_gap_y = 72  # delta from the top of the page to the grid
+            grid_gap_y = 96  # delta from the top of the page to the grid
             start_x = (page_width - grid_width) / 2
             start_y = page_height - page_margin - grid_gap_y  # Top of the grid
 
