@@ -85,7 +85,8 @@ def save_puzzle_data_to_json(
     output_path,
     puzzle_name,
     cover_color,
-    content_descriptions=None):
+    content_descriptions=None
+    ):
     """
     Saves the generated puzzles and solutions to a JSON file with metadata.
     """
