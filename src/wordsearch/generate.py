@@ -99,7 +99,7 @@ class WordSearch:
 
         self.grid = self.create_grid()
 
-        chars_to_removed = " -'"
+        chars_to_removed = " -'."
 
         # Sort words by length (longest first)
         sorted_words = sorted(word_list, key=lambda w: -len(w.translate(str.maketrans('', '', chars_to_removed))))

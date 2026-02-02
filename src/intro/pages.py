@@ -1,5 +1,5 @@
 """
-Functions for creating intro pages in crossword books - Animals theme.
+Functions for creating intro pages in word search books - Animals theme.
 Adapted for 80 puzzles, large print, seniors target.
 """
 
@@ -34,9 +34,10 @@ def create_title_page(output_pdf, puzzle_name, puzzle_num=80, about_content=None
     c.setFont("Helvetica-Bold", 32)  # Slightly reduced from 36pt
     
     # write the title form puzzle name variable uppercase, no underscores 
-    clean_title = puzzle_name.replace("_", " ").upper() + " CROSSWORD"
+    clean_title = puzzle_name.replace("_", " ").upper()
     print(f"Creating title page for {clean_title} with {puzzle_num} puzzles.")
     c.drawCentredString(page_width / 2, page_height * 0.75, clean_title)
+    c.drawCentredString(page_width / 2, page_height * 0.70, "WORD SEARCH")
     c.drawCentredString(page_width / 2, page_height * 0.58, "PUZZLES FOR ADULTS")
 
     c.setFont("Helvetica-Bold", subtitle_font_size)
@@ -87,12 +88,12 @@ def create_title_page(output_pdf, puzzle_name, puzzle_num=80, about_content=None
 
     # About text
     about_text = [
-        "Discover 80 themed crossword puzzles"
+        "Discover 80 themed word search puzzles"
     ]
     # append additional about content if provided
     if about_content:
         about_text = [
-            f"Discover 80 themed crossword puzzles featuring:",
+            f"Discover 80 themed word search puzzles featuring:",
         ]
         # Group about_content items in threes and append each group as a single string
         for i in range(0, len(about_content), 3):

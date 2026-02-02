@@ -85,8 +85,8 @@ def validate_json_data(data, file_path):
                     if 'words' in puzzle and 'size' in puzzle:
                         for word in puzzle['words']:
                             # do not count white space-only characters
-                            word = word.replace(" ", "")
-                            if len(word) > puzzle['size']:
+                            word_no_space = word.replace(" ", "")
+                            if len(word_no_space) > puzzle['size']:
                                 errors.append(f"Word '{word}' in puzzle at index {i} exceeds puzzle size {puzzle['size']}.")
     
     if show_info and not errors:

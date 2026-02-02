@@ -246,7 +246,7 @@ if __name__ == "__main__":
 
                 # if there are failed words, try to generate again 3 times
                 puzzle = None
-                for attempt in range(5):
+                for attempt in range(8):
                     puzzle = generate.generate_puzzle(
                         base_title,
                         selected_words,
@@ -256,7 +256,7 @@ if __name__ == "__main__":
                     )
                     if not puzzle.failed_words:
                         if attempt > 0:
-                            ordinal = {1: '1st', 2: '2nd', 3: '3rd', 4: '4th', 5: '5th'}[attempt + 1]
+                            ordinal = {1: '1st', 2: '2nd', 3: '3rd', 4: '4th', 5: '5th', 6: '6th', 7: '7th', 8: '8th'}[attempt + 1]
                             print(
                                 f"Puzzle '{base_title} {variation}' generated at the {ordinal} attempt"
                             )
