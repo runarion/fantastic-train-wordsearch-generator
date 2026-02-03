@@ -56,6 +56,13 @@ def validate_json_data(data, file_path):
             else:
                 errors.append("Missing 'color' key for version >= 1.0.")
 
+        if version >= 1.1:
+            # check if catchphrase is a string if present
+            if 'catchphrase' in data:
+                catchphrase = data['catchphrase']
+                if not isinstance(catchphrase, str):
+                    errors.append("'catchphrase' is not a string.")
+
         # For each puzzle in 'puzzles', check required fields
         if 'puzzles' in data:
             if not isinstance(data['puzzles'], list):
@@ -99,6 +106,8 @@ def validate_json_data(data, file_path):
         for i, puzzle in enumerate(data.get('puzzles', [])):
             if 'words' in puzzle:
                 title = puzzle.get('title', f"Puzzle at index {i}")
+                # add the index numner, to distinguish puzzles with same title
+                title = f"{title} (Puzzle {i})"
                 print(f"{title} has {len(puzzle['words'])} words.")
         # print a separator
         print("-" * 40)
