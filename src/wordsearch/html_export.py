@@ -48,8 +48,8 @@ def generate_html_description(output_path, title, description, categories=None, 
         description_text = description
     
     # Replace placeholders
-    html_content = html_content.replace("{TITLE}", title.upper())
-    html_content = html_content.replace("{title}", title.lower())
+    html_content = html_content.replace("{TITLE}", title.replace("_", " ").upper())
+    html_content = html_content.replace("{title}", title.replace("_", " ").lower())
     html_content = html_content.replace("{Descriptions}", description_text.title())
     html_content = html_content.replace("{catchphrase}", catchphrase)
     # Generate category list HTML
