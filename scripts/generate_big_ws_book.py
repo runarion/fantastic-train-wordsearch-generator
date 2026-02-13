@@ -22,6 +22,7 @@ from intro import create_intro_pages, create_solution_intro_pages
 from wordsearch import generate
 from wordsearch import pdf_render
 from wordsearch import cover_image
+from wordsearch.html_export import generate_html_description
 
 
 def draw_page_number(c, page_num):
@@ -173,6 +174,12 @@ if __name__ == "__main__":
         default="wordlist",
         help="type of input file: 'wordlist' for puzzle definitions (generates new puzzles), 'puzzles' for previously generated puzzle data (reuses puzzles)",
     )
+    parser.add_argument(
+        "-d",
+        "--html-description",
+        action="store_true",
+        help="generate an HTML file with the title and description of the book",
+    )
 
     args = parser.parse_args()
 
@@ -181,6 +188,7 @@ if __name__ == "__main__":
     solutions = []
     cover_color = "#1E90FF"  # default blue
     content_descriptions = []
+    categories_data = []  # List of (title, [words]) tuples for HTML description
 
     if args.input_type == "puzzles":
         # Load previously generated puzzle data
@@ -224,7 +232,7 @@ if __name__ == "__main__":
 
         # Generate puzzles and solutions - create multiple variations for
         # each theme
-        for item in data["puzzles"]:
+        for item in data["puzzles"][:20]:
             size = item.get("size", 15)
             count = item.get("count", 20)
             base_title = item["title"]
@@ -232,6 +240,11 @@ if __name__ == "__main__":
             # Append the puzzle "title" to descriptions, only first 6 titles
             if len(content_descriptions) < 6:
                 content_descriptions.append(base_title)
+            
+            # Collect first 7 categories with their first 4 words for HTML description
+            if len(categories_data) < 7:
+                first_4_words = item["words"][:4]
+                categories_data.append((base_title, first_4_words))
 
             # Generate multiple variations of each puzzle
             for variation in range(1, args.copies + 1):
@@ -355,3 +368,9 @@ if __name__ == "__main__":
         merger.write(pdf_output_path)
         merger.close()
         print(f"Book PDF generated: {pdf_output_path}")
+    
+    # Generate HTML description if requested
+    if args.html_description:
+        html_output_path = os.path.join(output_dir, f"{puzzle_name}-description.html")
+        description = content_descriptions if content_descriptions else "Word Search Book"
+        generate_html_description(html_output_path, puzzle_name, description, categories_data, catchphrase=data.get("catchphrase", ""))
