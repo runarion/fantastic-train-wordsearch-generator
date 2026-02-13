@@ -3,20 +3,57 @@
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-A Python library for generating professional wordsearch puzzles and puzzle books. Perfect for creating educational materials, activity books, or recreational puzzle collections.
+[//]: # (Add your CI badge below if available)
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/runarion/fantastic-train-wordsearch-generator/actions) <!-- Replace with real CI badge if available -->
+
+A Python library for generating professional Word Search puzzles and puzzle books. Perfect for creating educational materials, activity books, or recreational puzzle collections.
+
+---
+
+## 📑 Table of Contents
+
+- [🚆📚 Fantastic Train - Wordsearch Generator](#-fantastic-train---wordsearch-generator)
+  - [📑 Table of Contents](#-table-of-contents)
+  - [✨ Features](#-features)
+    - [Planned Features:](#planned-features)
+  - [🚀 Installation](#-installation)
+    - [From Source](#from-source)
+  - [⚡ Quick Start](#-quick-start)
+    - [Requirements](#requirements)
+  - [📖 Usage](#-usage)
+    - [1. Generate Single Page Puzzles](#1-generate-single-page-puzzles)
+    - [2. Generate Complete Puzzle Books](#2-generate-complete-puzzle-books)
+    - [3. Generate Large Puzzle Books with Variations](#3-generate-large-puzzle-books-with-variations)
+    - [Validation](#validation)
+  - [🏗️ Project Structure](#️-project-structure)
+  - [🧪 Running Tests](#-running-tests)
+  - [📋 Roadmap](#-roadmap)
+  - [🤝 Contributing](#-contributing)
+  - [📄 License](#-license)
+  - [👤 Author](#-author)
+  - [🙏 Acknowledgments](#-acknowledgments)
+  - [📚 Example Output](#-example-output)
+    - [📸 Screenshots / Previews](#-screenshots--previews)
+
+---
+
+A Python library for generating professional Word Search puzzles and puzzle books. Perfect for creating educational materials, activity books, or recreational puzzle collections.
 
 ## ✨ Features
 
 - [x] 🎯 **Customizable Grid Sizes** - Generate puzzles from small (8x8) to large (30x30) grids
 - [x] 📝 **Flexible Word Lists** - Import words from JSON files or provide them programmatically
-- [x] 🎨 **Multiple Difficulty Levels** - Control word placement directions (8-directional or basic 3-directional)
 - [x] 📚 **Batch Generation** - Create multiple puzzles for complete puzzle books
 - [x] 🖨️ **Export Formats** - Output puzzles to PDF and DOCX formats
 - [x] 📖 **Complete Book Generation** - Generate full PDF books with cover pages, intro pages, and solutions
 - [x] 🎲 **Randomization** - Generate unique puzzles from the same word list
-- [x] ✅ **Solution Keys** - Automatically generate answer keys with highlighted words
 - [x] 📦 **Pre-made Collections** - Includes ready-to-use word lists (Animals, Travel, Food, Jobs)
+
+### Planned Features:
+
+- [ ] 🎨 **Multiple Difficulty Levels** - Control word placement directions (8-directional or basic 3-directional)
 - [ ] 🌟 **Future Formats** - PNG/SVG export (planned)
+- [ ] ✅ **Solution Keys** - Automatically generate answer keys with highlighted words
 
 ## 🚀 Installation
 
@@ -34,6 +71,20 @@ Install the package with dependencies:
 ```bash
 pip install -e .
 ```
+
+---
+
+## ⚡ Quick Start
+
+Generate a sample puzzle page as PDF:
+
+```bash
+python -m scripts.generate_ws_page data/input_page.json -o output/ --pdf
+```
+
+Find your generated PDF in the `output/` folder.
+
+---
 
 ### Requirements
 
@@ -68,10 +119,13 @@ python -m scripts.generate_ws_page data/input_page.json -o output/ --pdf
 ```
 
 **Options:**
+
+- `input` - Input file, json format (required)
+
 - `-o, --output` - Output folder for generated files (required for PDF/DOCX)
+- `-b, --basic` - Use basic directions only (horizontal left-to-right, vertical top-to-bottom, diagonal top-left to bottom-right)
 - `--pdf` - Generate PDF output
 - `--docx` - Generate DOCX output
-- `-b, --basic` - Use basic directions only (horizontal left-to-right, vertical top-to-bottom, diagonal top-left to bottom-right)
 
 **Input JSON Format:**
 
@@ -88,45 +142,53 @@ python -m scripts.generate_ws_page data/input_page.json -o output/ --pdf
 ```
 
 Sample file: [`data/input_page.json`](data/input_page.json)
+  
+Output: PDF and/or DOCX files will be saved in the specified `output/` folder.
 
 ### 2. Generate Complete Puzzle Books
 
 Generate a complete PDF book with title page, puzzles, and solutions section.
 
 ```bash
-python -m scripts.generate_ws_book data/input_book.json -o output/book.pdf
+python -m scripts.generate_ws_book data/input_book.json -o output/book.pdf --pdf
 ```
 
 **Options:**
-- `-o, --output` - Output PDF file path (required)
-- `-b, --basic` - Use basic directions only
-- `--no-cover` - Skip cover page generation
+
+- `input` - Input file, json format (required)
+- `output` - Output PDF file path (required)
+
+- `-n, --name` - Name of the output book (without extension)
 
 **Input Format:** Same as single page, with a book `title` at the root level.
 
 Sample file: [`data/input_book.json`](data/input_book.json)
+  
+Output: The generated book will be saved as a PDF in the specified output path (e.g., `output/book.pdf`).
 
 ### 3. Generate Large Puzzle Books with Variations
 
 Generate a large puzzle book with multiple variations of each puzzle theme.
 
 ```bash
-python -m scripts.generate_big_ws_book data/books/01_animals_20_lists.json -o output/big_book.pdf -n 4
+python -m scripts.generate_big_ws_book data/books/01_animals_20_lists.json -o output/big_book.pdf -n 4 --pdf
 ```
 
 **Options:**
-- `-o, --output` - Output PDF file path (required)
-- `-n, --num-variations` - Number of variations per puzzle (default: 4)
-- `-b, --basic` - Use basic directions only
-- `--no-cover` - Skip cover page generation
 
-**Input Format:** Each puzzle includes a `count` field specifying how many words to use per variation.
+- `input` - Input file, json format (required)
+- `output` - Output PDF file path (required)
 
-**Pre-made Books:**
-- [`data/books/01_animals_20_lists.json`](data/books/01_animals_20_lists.json) - 20 animal-themed puzzles
-- [`data/books/02_travel&cities_20_lists.json`](data/books/02_travel&cities_20_lists.json) - 20 travel and cities puzzles
-- [`data/books/03_food&drinks_20_lists.json`](data/books/03_food&drinks_20_lists.json) - 20 food and drinks puzzles
-- [`data/books/04_jobs&professions_20_lists.json`](data/books/04_jobs&professions_20_lists.json) - 20 jobs and professions puzzles
+- `-n, --name` - Name of the output book (without extension)
+- `-c, --copies` - Number of copies per puzzle (default: 4)
+- `-t, --input-type` - Type of input file: 'wordlist' for puzzle definitions (generates new puzzles), 'puzzles' for previously generated puzzle data (reuses puzzles)
+- `-d, --html-description` - Generate an HTML file with the title and description of the book (default: False)
+
+**Input Format:**
+
+Sample files with 20 puzzles each in the folder [`data/books/`](data/books/).
+  
+Output: The large book will be saved as a PDF in the specified output path (e.g., `output/big_book.pdf`).
 
 ### Validation
 
@@ -136,6 +198,12 @@ Validate your JSON puzzle files before generation:
 python -m scripts.validate_books data/books/
 ```
 
+**Options:**
+
+- `input_path` - Path to either a JSON file or a folder containing JSON files
+
+---
+
 ## 🏗️ Project Structure
 
 ```txt
@@ -144,10 +212,6 @@ fantastic-train-wordsearch-generator/
 │   ├── input_page.json        # Sample single page input
 │   ├── input_book.json        # Sample book input
 │   └── books/                 # Pre-made puzzle collections
-│       ├── 01_animals_20_lists.json
-│       ├── 02_travel&cities_20_lists.json
-│       ├── 03_food&drinks_20_lists.json
-│       └── 04_jobs&professions_20_lists.json
 ├── scripts/                   # Executable scripts
 │   ├── generate_ws_page.py   # Single page generator
 │   ├── generate_ws_book.py   # Book generator
@@ -180,6 +244,8 @@ Run all tests:
 pytest tests/
 ```
 
+Test results will be shown in the terminal. For more details, see the [tests/](tests/) folder.
+
 Run specific test files:
 
 ```bash
@@ -208,6 +274,8 @@ pytest tests/ -v
 - [ ] GUI application
 - [ ] Interactive puzzle solving mode
 
+---
+
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
@@ -230,19 +298,28 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 ## 🙏 Acknowledgments
 
-- Inspired by classic wordsearch puzzle books
+- Inspired by classic word search puzzle books
 - Built with Python and ReportLab for professional PDF generation
 - Special thanks to all contributors
+
+---
 
 ## 📚 Example Output
 
 The generator creates professional-quality puzzle books with:
+
 - Custom cover pages with title and imagery
 - Introduction pages explaining puzzle rules
 - One puzzle per page with word lists
 - Dedicated solutions section with highlighted answers
 - Page numbering throughout
 - Consistent formatting and styling
+
+### 📸 Screenshots / Previews
+
+<!-- Add screenshots or sample output images here -->
+<!-- Example: -->
+<!-- ![Sample Puzzle Page](docs/sample_puzzle_page.png) -->
 
 ---
 
